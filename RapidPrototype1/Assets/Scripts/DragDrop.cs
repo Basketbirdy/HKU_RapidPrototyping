@@ -15,9 +15,6 @@ public class DragDrop : MonoBehaviour
 
     private Vector2 moveOffset;
 
-    [Header("References")]
-    [SerializeField] private GameObject spriteMask;
-
     private void OnEnable()
     {
         onClick += OnClick;
@@ -34,8 +31,6 @@ public class DragDrop : MonoBehaviour
     void Update()
     {
         GetInput();
-
-        spriteMask.transform.localPosition = mouseWorldPos;
 
         UpdateDragable();
     }
@@ -68,14 +63,16 @@ public class DragDrop : MonoBehaviour
         if (isHolding) { return; }
 
         // shoot raycast to find draggable
-        RaycastHit2D hit = Physics2D.Raycast(mouseWorldPos, transform.forward, 1);
+        Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos);
 
-        if(hit.collider == null) { return; }
+        if(hit == null) { return; }
 
-        IDragable dragable = hit.collider.GetComponent<IDragable>();
+        IDragable dragable = hit.GetComponent<IDragable>();
         if (dragable != null)
         {
             heldDragable = dragable;
+            dragable.OnClick(mouseWorldPos);
+
             isHolding = true;
         }
     }

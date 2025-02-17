@@ -14,7 +14,7 @@ public class PageGenerator : MonoBehaviour
     [SerializeField] private Creature[] creatures;
 
     [Header("Runtime")]
-    [SerializeField] private List<Page> pages;
+    [SerializeField] private Dictionary<Page, int> pages = new Dictionary<Page, int>();
     private int currentCorrupted;
     private Creature selectedCreature;
 
@@ -64,11 +64,10 @@ public class PageGenerator : MonoBehaviour
                 }
             }
 
-            Vector3 pagePos = new Vector3(transform.position.x, transform.position.y, transform.position.z - zOffset);
+            Vector3 pagePos = new Vector3(transform.position.x, transform.position.y, transform.position.z + zOffset);
             zOffset += 1f;
             Page page = Instantiate(pagePrefab, pagePos, Quaternion.identity).GetComponent<Page>();
             page.SetupPage(selectedCreature, SelectColor());
-            pages.Add(page);
 
             selectedCreature = null;
         }

@@ -7,10 +7,12 @@ public class CreatureDetection : MonoBehaviour
     [Space]
     [SerializeField] private float detectionRadius;
 
+    [Header("References")]
+    [SerializeField] private GameObject spriteMask;
+
     private Vector3 cursorWorldPosition;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private void Awake()
     {
         
     }
@@ -20,9 +22,12 @@ public class CreatureDetection : MonoBehaviour
     {
         cursorWorldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
+        Vector3 maskPos = new Vector3(cursorWorldPosition.x, cursorWorldPosition.y, transform.position.z);
+        spriteMask.transform.localPosition = maskPos;
+
         if (TryFindCreature())
         {
-            Debug.Log("FoundCreature");
+            //Debug.Log("FoundCreature");
         }
     }
 
