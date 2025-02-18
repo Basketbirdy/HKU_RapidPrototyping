@@ -74,4 +74,6 @@ public static class EventTypes
     public const string DRAGABLE_REORDER = "DRAGABLE_REORDER";
 
     public const string CREATURE_STAREDAT = "CREATURE_STAREDAT";
+    public const string CREATURE_ADD = "CREATURE_ADD";
+    public const string CREATURE_REMOVE = "CREATURE_REMOVE";
 }

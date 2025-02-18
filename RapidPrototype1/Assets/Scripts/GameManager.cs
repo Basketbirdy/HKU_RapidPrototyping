@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -7,7 +8,7 @@ public class GameManager : MonoBehaviour
 
     public static Action onStartGame;
 
-    [Header("Creature Stages")]
+    [Header("Creature")]
     [SerializeField] private int maxCreatureStages;
 
     [Header("Coin")]
@@ -19,15 +20,22 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject darkness;
     [Space]
     [SerializeField] private int currentCreatureStage;
+    [SerializeField] private List<GameObject> creatures = new List<GameObject>();
+    [Space]
+    [SerializeField] private bool creaturesCleared = false;
 
     private void OnEnable()
     {
         EventHandler.AddListener(EventTypes.CREATURE_STAREDAT, AdvanceStage);
+        EventHandler<GameObject>.AddListener(EventTypes.CREATURE_ADD, AddCreature);
+        EventHandler<GameObject>.AddListener(EventTypes.CREATURE_REMOVE, RemoveCreature);
     }
 
     private void OnDisable()
     {
         EventHandler.RemoveListener(EventTypes.CREATURE_STAREDAT, AdvanceStage);
+        EventHandler<GameObject>.RemoveListener(EventTypes.CREATURE_ADD, AddCreature);
+        EventHandler<GameObject>.RemoveListener(EventTypes.CREATURE_REMOVE, RemoveCreature);
     }
 
     private void Awake()
@@ -61,5 +69,23 @@ public class GameManager : MonoBehaviour
     public int GetCreatureStage()
     {
         return currentCreatureStage;
+    }
+
+    private void AddCreature(GameObject creature)
+    {
+        if(!creatures.Contains(creature))
+        {
+            creatures.Add(creature);
+        }
+    }
+
+    private void RemoveCreature(GameObject creature)
+    {
+        if(creatures.Contains(creature))
+        {
+            creatures.Remove(creature);
+        }
+
+        if(creatures.Count >= 0) { creaturesCleared = true; }
     }
 }

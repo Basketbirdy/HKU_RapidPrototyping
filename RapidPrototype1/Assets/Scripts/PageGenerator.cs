@@ -68,7 +68,6 @@ public class PageGenerator : MonoBehaviour
             zOffset += 1f;
             Page page = Instantiate(pagePrefab, pagePos, Quaternion.identity).GetComponent<Page>();
             page.SetupPage(selectedCreature, SelectColor());
-
             selectedCreature = null;
         }
 
