@@ -42,12 +42,12 @@ public class DragableObject : MonoBehaviour, IDragable
 
     public void AddDragable()
     {
-        EventHandler<IDragable>.InvokeEvent(EventTypes.DRAGABLE_ADD, this);
+        EventHandler<IDragable>.InvokeEvent(EventTypes.DRAGABLE_ADD, this.GetComponent<IDragable>());
     }
 
     public void RemoveDragable()
     {
-        EventHandler<IDragable>.InvokeEvent(EventTypes.DRAGABLE_REMOVE, this);
+        EventHandler<IDragable>.InvokeEvent(EventTypes.DRAGABLE_REMOVE, this.GetComponent<IDragable>());
     }
 
     public void UpdateOrder(int index)

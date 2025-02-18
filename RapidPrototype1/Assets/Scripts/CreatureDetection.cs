@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -8,12 +9,19 @@ public class CreatureDetection : MonoBehaviour
     [SerializeField] private LayerMask visibilityMask;
     [Space]
     [SerializeField] private float detectionRadius;
+    [Space]
+    [SerializeField] private float creatureGracePeriod = 3f;
 
     [Header("References")]
     [SerializeField] private GameObject spriteMask;
 
     private Vector3 cursorWorldPosition;
     private Ray ray;
+
+    private Coroutine creatureTimer;
+
+    [Header("Debug")]
+    [SerializeField] private float elapsedTime;
 
     private void Awake()
     {
@@ -35,6 +43,18 @@ public class CreatureDetection : MonoBehaviour
         if (TryFindCreature())
         {
             Debug.Log($"Creature is visible");
+            if(creatureTimer == null)
+            {
+                creatureTimer = StartCoroutine(CreatureTimer(creatureGracePeriod));
+            }
+        }
+        else
+        {
+            if(creatureTimer != null)
+            {
+                StopCoroutine(creatureTimer);
+                creatureTimer = null;
+            }
         }
     }
 
@@ -55,6 +75,21 @@ public class CreatureDetection : MonoBehaviour
         }
 
         return false;
+    }
+
+    private IEnumerator CreatureTimer(float duration)
+    {
+        elapsedTime = 0;
+
+        while(elapsedTime < duration) 
+        { 
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // advance creature state
+        EventHandler.InvokeEvent(EventTypes.CREATURE_STAREDAT);
+        creatureTimer = null;
     }
 
     private void OnDrawGizmos()

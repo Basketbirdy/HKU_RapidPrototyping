@@ -31,7 +31,10 @@ public class DragDrop : MonoBehaviour
     void Update()
     {
         GetInput();
+    }
 
+    private void FixedUpdate()
+    {
         UpdateDragable();
     }
 

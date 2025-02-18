@@ -72,4 +72,6 @@ public static class EventTypes
     public const string DRAGABLE_ADD = "DRAGABLE_ADD";
     public const string DRAGABLE_REMOVE = "DRAGABLE_REMOVE";
     public const string DRAGABLE_REORDER = "DRAGABLE_REORDER";
+
+    public const string CREATURE_STAREDAT = "CREATURE_STAREDAT";
 }
