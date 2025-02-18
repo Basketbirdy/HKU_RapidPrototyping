@@ -8,17 +8,19 @@ public class Page : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private GameObject pageGFX;
-    private BoxCollider2D pageCollider;
+    [SerializeField] private BoxCollider visibilityCollider;
+    [SerializeField] private BoxCollider2D pageCollider;
 
     private void Awake()
     {
-        pageCollider = GetComponent<BoxCollider2D>();
+
     }
 
     public void SetupPage(Creature creature, Color pageColor)
     {
         pageGFX.transform.localScale = new Vector3(pageX, pageY, 0);
         pageCollider.size = new Vector2(pageX, pageY);
+        visibilityCollider.size = new Vector3 (pageX, pageY, 0);
         pageGFX.GetComponent<SpriteRenderer>().color = pageColor;
 
         // setup creature

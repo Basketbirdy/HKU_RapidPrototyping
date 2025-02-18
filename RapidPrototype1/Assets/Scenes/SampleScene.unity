@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pageAmount: 20
-  corruptedAmount: 5
+  corruptedAmount: 4
   pageColors:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 0.9884698, b: 0.8836478, a: 1}
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a66776c81360d84080915bed9698b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showDarkness: 1
+  showDarkness: 0
   darkness: {fileID: 1291849372}
 --- !u!1 &1062620798
 GameObject:
@@ -581,6 +581,9 @@ MonoBehaviour:
   detectionMask:
     serializedVersion: 2
     m_Bits: 8
+  visibilityMask:
+    serializedVersion: 2
+    m_Bits: 64
   detectionRadius: 2
   spriteMask: {fileID: 632476772}
 --- !u!1 &1180829008
