@@ -127,28 +127,37 @@ public class GameManager : MonoBehaviour
         Debug.LogWarning("ENDING GAME");
 
         string currentEnding = "";
-        if (creaturesCleared)
+
+        if(currentCreatureStage > maxCreatureStages)
         {
-            if(currentCreatureStage == 0)
-            {
-                currentEnding = "NoVisage_CreatureUnAlerted";
-            }
-            else
-            {
-                currentEnding = "NoVisage_CreatureAlerted";
-            }
+            currentEnding = "CreatureAttack";
         }
         else
         {
-            if (currentCreatureStage == 0)
+            if (creaturesCleared)
             {
-                currentEnding = "Visage_CreatureUnAlerted";
+                if(currentCreatureStage == 0)
+                {
+                    currentEnding = "NoVisage_CreatureUnAlerted";
+                }
+                else
+                {
+                    currentEnding = "NoVisage_CreatureAlerted";
+                }
             }
             else
             {
-                currentEnding = "Visage_CreatureAlerted";
+                if (currentCreatureStage == 0)
+                {
+                    currentEnding = "Visage_CreatureUnAlerted";
+                }
+                else
+                {
+                    currentEnding = "Visage_CreatureAlerted";
+                }
             }
         }
+
 
         EndingData currentEndingData = new EndingData();
         foreach(EndingData ending in endingData)

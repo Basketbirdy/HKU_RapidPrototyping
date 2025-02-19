@@ -913,7 +913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a66776c81360d84080915bed9698b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCreatureStages: 3
+  maxCreatureStages: 2
   endDelay: 4
   endingData:
   - name: NoVisage_CreatureAlerted
@@ -948,6 +948,11 @@ MonoBehaviour:
 
       without the entity
       noticing your gaze.'
+  - name: CreatureAttack
+    flavorText: '[Insert jumpscare] >:)
+
+      The entity has consumed your soul.'
+    explanationText: You looked at the entity for too long.
   tutorialPage: {fileID: 2117708014445386700, guid: 2ef187c38ed7fec4b9a3ccda5e02624f, type: 3}
   tutorialPageSpawn: {x: 0, y: 0, z: -16}
   scratchingCoin: {fileID: 7858390507455608046, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
