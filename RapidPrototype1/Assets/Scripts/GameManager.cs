@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -124,6 +125,47 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         Debug.LogWarning("ENDING GAME");
+
+        string currentEnding = "";
+        if (creaturesCleared)
+        {
+            if(currentCreatureStage == 0)
+            {
+                currentEnding = "NoVisage_CreatureUnAlerted";
+            }
+            else
+            {
+                currentEnding = "NoVisage_CreatureAlerted";
+            }
+        }
+        else
+        {
+            if (currentCreatureStage == 0)
+            {
+                currentEnding = "Visage_CreatureUnAlerted";
+            }
+            else
+            {
+                currentEnding = "Visage_CreatureAlerted";
+            }
+        }
+
+        EndingData currentEndingData = new EndingData();
+        foreach(EndingData ending in endingData)
+        {
+            if(currentEnding == ending.name)
+            {
+                currentEndingData = ending;
+            }
+        }
+
+        EventHandler<EndingData>.InvokeEvent(EventTypes.GAME_END, currentEndingData);
+    }
+
+    public void RestartGame()
+    {
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(currentSceneIndex);
     }
 
     public IEnumerator Timer(float duration, Action action)
