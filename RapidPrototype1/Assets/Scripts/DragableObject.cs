@@ -4,6 +4,9 @@ using static UnityEditor.PlayerSettings;
 
 public class DragableObject : MonoBehaviour, IDragable
 {
+    [SerializeField] private bool isDragged;
+    [HideInInspector] public bool IsDragged { get => isDragged; set => isDragged = value; }
+
     private Vector3 offset;
     [HideInInspector] public Vector3 Offset { get => offset; set => offset = value; }
 
@@ -25,6 +28,8 @@ public class DragableObject : MonoBehaviour, IDragable
         Offset = relativeVector;
 
         EventHandler<IDragable>.InvokeEvent(EventTypes.DRAGABLE_REORDER, this.GetComponent<IDragable>());
+        isDragged = true;
+        Debug.Log($"IsDragged set to true: {isDragged}");
     }
 
     public void OnDrag(Vector2 pos)
@@ -38,6 +43,8 @@ public class DragableObject : MonoBehaviour, IDragable
     public void OnRelease()
     {
         Offset = Vector3.zero;
+        isDragged = false;
+        Debug.Log($"IsDragged set to false: {isDragged}");
     }
 
     public void AddDragable()

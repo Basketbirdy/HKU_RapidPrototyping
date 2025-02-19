@@ -86,6 +86,7 @@ public class DragDrop : MonoBehaviour
 
         if(!isHolding) { return; }
 
+        heldDragable.OnRelease();
         heldDragable = null;
         isHolding = false;
     }

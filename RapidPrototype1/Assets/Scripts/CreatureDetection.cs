@@ -42,7 +42,7 @@ public class CreatureDetection : MonoBehaviour
 
         if (TryFindCreature())
         {
-            Debug.Log($"Creature is visible");
+            //Debug.Log($"Creature is visible");
             if(creatureTimer == null)
             {
                 creatureTimer = StartCoroutine(CreatureTimer(creatureGracePeriod));
@@ -67,6 +67,12 @@ public class CreatureDetection : MonoBehaviour
         //Debug.Log($"Creatures hit count: {hits.Length}");
         for(int i = 0; i < hits.Length; i++)
         {
+            IScratchable scratchable = hits[i].collider.GetComponent<IScratchable>();
+            if(scratchable != null) 
+            {
+                if (scratchable.IsScratched) { continue; }
+            }
+
             bool covered = Physics.Raycast(hits[i].transform.position, -transform.forward, Mathf.Infinity);
 
             if (covered) { continue; }

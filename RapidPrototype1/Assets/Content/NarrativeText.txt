@@ -1,0 +1,18 @@
+Endings
+
+- Obscured every visage, creature stage != 0
+Killed by the creature off screen
+
+- Obscured every visage, creature stage = 0
+Allowed to leave
+
+- Did not obscure every visage, creature stage != 0
+killed by creature off screen
+
+- Did not obscure every visage, creature stage = 0
+Executed off-screen (death penalty)
+
+- creature stage = max
+Killed by creature (off screen)
+
+

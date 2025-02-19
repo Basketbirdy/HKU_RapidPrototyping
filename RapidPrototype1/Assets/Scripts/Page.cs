@@ -30,6 +30,5 @@ public class Page : MonoBehaviour
         Vector3 position = new Vector3(Random.Range(-rangeX, rangeX), Random.Range(-rangeY, rangeX), transform.position.z - 0.01f);
         GameObject creatureObj = Instantiate(creature.prefab, position, Quaternion.identity, transform);
         EventHandler<GameObject>.InvokeEvent(EventTypes.CREATURE_ADD, creatureObj);
-
     }
 }

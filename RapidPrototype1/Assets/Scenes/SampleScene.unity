@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pageAmount: 20
-  corruptedAmount: 4
+  corruptedAmount: 6
   pageColors:
   - {r: 1, g: 1, b: 1, a: 1}
   - {r: 1, g: 0.9884698, b: 0.8836478, a: 1}
@@ -238,6 +238,67 @@ MonoBehaviour:
     x: 1
     y: 2
     prefab: {fileID: 6681580888577915274, guid: 1fa828733bd1e9c4896f21bf7c15083a, type: 3}
+--- !u!1001 &480356269
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.7973888
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7842232660093953206, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858390507455608046, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_Name
+      value: ScratchCoin
+      objectReference: {fileID: 0}
+    - target: {fileID: 7858390507455608046, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 0c99253689f19ee40afcd8a316c90bff, type: 3}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1049,3 +1110,4 @@ SceneRoots:
   - {fileID: 7960568404335499969}
   - {fileID: 7010970515315811692}
   - {fileID: 5715307857056841492}
+  - {fileID: 480356269}

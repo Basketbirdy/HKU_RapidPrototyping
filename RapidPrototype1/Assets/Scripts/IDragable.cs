@@ -2,6 +2,7 @@ using UnityEngine;
 
 public interface IDragable
 {
+    public bool IsDragged { get; set; }
     public Vector3 Offset { get; set; }
 
     public void OnDrag(Vector2 pos);

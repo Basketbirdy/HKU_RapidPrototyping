@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -86,6 +87,29 @@ public class GameManager : MonoBehaviour
             creatures.Remove(creature);
         }
 
-        if(creatures.Count >= 0) { creaturesCleared = true; }
+        if(creatures.Count <= 0) 
+        {
+            creaturesCleared = true;
+            StartCoroutine(Timer(4f, EndGame));
+        }
     }
+
+    private void EndGame()
+    {
+        Debug.LogWarning("ENDING GAME");
+    }
+
+    private IEnumerator Timer(float duration, Action action)
+    {
+        float elapsedTime = 0f;
+
+        while(elapsedTime < duration) 
+        {
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        action?.Invoke();
+    }
+
 }
