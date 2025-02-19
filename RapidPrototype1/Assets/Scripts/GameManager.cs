@@ -13,6 +13,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int maxCreatureStages;
 
     [Header("Coin")]
+
+    [Header("Ending")]
+    [SerializeField] private float endDelay;
+    [Space]
+    [SerializeField] private EndingData[] endingData;
+
+    [Header("Dragable instantiation")]
+    [SerializeField] private GameObject tutorialPage;
+    [SerializeField] private Vector3 tutorialPageSpawn;
     [SerializeField] private GameObject scratchingCoin;
     [SerializeField] private Vector2 coinSpawn;
 
@@ -20,9 +29,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool showDarkness;
     [SerializeField] private GameObject darkness;
     [Space]
-    [SerializeField] private int currentCreatureStage;
     [SerializeField] private List<GameObject> creatures = new List<GameObject>();
-    [Space]
+
+    [Header("Win conditions")]
+    [SerializeField] private int currentCreatureStage;
     [SerializeField] private bool creaturesCleared = false;
 
     private void OnEnable()
@@ -30,6 +40,9 @@ public class GameManager : MonoBehaviour
         EventHandler.AddListener(EventTypes.CREATURE_STAREDAT, AdvanceStage);
         EventHandler<GameObject>.AddListener(EventTypes.CREATURE_ADD, AddCreature);
         EventHandler<GameObject>.AddListener(EventTypes.CREATURE_REMOVE, RemoveCreature);
+
+        // game events
+        EventHandler.AddListener(EventTypes.GAME_END_TRIGGER, TriggerEndGame);
     }
 
     private void OnDisable()
@@ -37,6 +50,9 @@ public class GameManager : MonoBehaviour
         EventHandler.RemoveListener(EventTypes.CREATURE_STAREDAT, AdvanceStage);
         EventHandler<GameObject>.RemoveListener(EventTypes.CREATURE_ADD, AddCreature);
         EventHandler<GameObject>.RemoveListener(EventTypes.CREATURE_REMOVE, RemoveCreature);
+
+        // game events
+        EventHandler.RemoveListener(EventTypes.GAME_END_TRIGGER, TriggerEndGame);
     }
 
     private void Awake()
@@ -53,6 +69,7 @@ public class GameManager : MonoBehaviour
         currentCreatureStage = 0;
 
         Instantiate(scratchingCoin, coinSpawn, Quaternion.identity);
+        Instantiate(tutorialPage, tutorialPageSpawn, Quaternion.identity);
 
         OnStartGame();
     }
@@ -64,7 +81,13 @@ public class GameManager : MonoBehaviour
 
     public void AdvanceStage()
     {
-        currentCreatureStage += 1;   
+        currentCreatureStage += 1;  
+        
+        if(currentCreatureStage > maxCreatureStages) 
+        {
+            // TODO - trigger jumpscare
+            EventHandler.InvokeEvent(EventTypes.GAME_END_TRIGGER);
+        }
     }
 
     public int GetCreatureStage()
@@ -90,8 +113,12 @@ public class GameManager : MonoBehaviour
         if(creatures.Count <= 0) 
         {
             creaturesCleared = true;
-            StartCoroutine(Timer(4f, EndGame));
         }
+    }
+
+    private void TriggerEndGame()
+    {
+        StartCoroutine(Timer(endDelay, EndGame));
     }
 
     private void EndGame()
@@ -99,7 +126,7 @@ public class GameManager : MonoBehaviour
         Debug.LogWarning("ENDING GAME");
     }
 
-    private IEnumerator Timer(float duration, Action action)
+    public IEnumerator Timer(float duration, Action action)
     {
         float elapsedTime = 0f;
 
@@ -112,4 +139,12 @@ public class GameManager : MonoBehaviour
         action?.Invoke();
     }
 
+}
+
+[System.Serializable]
+struct EndingData
+{
+    public string name;
+    [TextArea(5, 10)] public string flavorText;
+    [TextArea(5, 10)] public string explanationText;
 }

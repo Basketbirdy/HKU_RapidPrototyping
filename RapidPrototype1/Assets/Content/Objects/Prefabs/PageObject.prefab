@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f835dab6b79194b8ba3400767e2648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isDragged: 0
 --- !u!61 &2724761107314723594
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -161,7 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pageX: 6
   pageY: 8
-  pageGFX: {fileID: 4802195747968041939}
+  pageGFX: {fileID: 707605544156543436}
   visibilityCollider: {fileID: 6057463445280855875}
   pageCollider: {fileID: 2724761107314723594}
 --- !u!1 &4802195747968041939
@@ -191,8 +192,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 6, y: 8, z: 0.6666667}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6506358928502987067}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -240,11 +241,11 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
+  m_Sprite: {fileID: 6251951295935863232, guid: eccf4d5e466ce604dac05916dc5bb7d1, type: 3}
   m_Color: {r: 1, g: 0.9974858, b: 0.95911944, a: 1}
   m_FlipX: 0
   m_FlipY: 0
-  m_DrawMode: 0
+  m_DrawMode: 1
   m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0

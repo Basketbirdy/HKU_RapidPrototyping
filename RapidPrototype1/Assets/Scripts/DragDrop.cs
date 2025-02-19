@@ -70,6 +70,12 @@ public class DragDrop : MonoBehaviour
 
         if(hit == null) { return; }
 
+        IClickable clickable = hit.GetComponent<IClickable>();
+        if (clickable != null)
+        {
+            clickable.OnClick();
+        }
+
         IDragable dragable = hit.GetComponent<IDragable>();
         if (dragable != null)
         {

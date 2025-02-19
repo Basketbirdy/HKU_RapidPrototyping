@@ -76,4 +76,7 @@ public static class EventTypes
     public const string CREATURE_STAREDAT = "CREATURE_STAREDAT";
     public const string CREATURE_ADD = "CREATURE_ADD";
     public const string CREATURE_REMOVE = "CREATURE_REMOVE";
+
+    public const string GAME_END_TRIGGER = "GAME_END_TRIGGER";
+    public const string GAME_END = "GAME_END";
 }
