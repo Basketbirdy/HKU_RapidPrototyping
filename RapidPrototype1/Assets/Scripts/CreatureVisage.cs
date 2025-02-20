@@ -18,6 +18,7 @@ public class CreatureVisage : MonoBehaviour, IScratchable, ICoverable
         IsScratched = true;
         if(scratchMark != null) { scratchMark.SetActive(true); }
         EventHandler<GameObject>.InvokeEvent(EventTypes.CREATURE_REMOVE, gameObject);
+        AudioManager.instance.Play("CoinScratch");
 
         Debug.Log($"Scratched {gameObject.name}");
     }

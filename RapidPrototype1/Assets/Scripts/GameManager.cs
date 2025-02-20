@@ -77,6 +77,7 @@ public class GameManager : MonoBehaviour
         Page page = Instantiate(tutorialPage, tutorialPageSpawn, Quaternion.identity).GetComponent<Page>();
         page.SetupPage(null, Color.white);
 
+        AudioManager.instance.Play("Ambience");
         OnStartGame();
     }
 
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
     {
         currentCreatureStage += 1;
         currentCreatureBashRate = baseCreatureBashRate + creatureBashRateIncrement * currentCreatureStage;
+        AudioManager.instance.Play("MonsterSignal");
         
         if(currentCreatureStage > maxCreatureStages) 
         {
@@ -188,7 +190,8 @@ public class GameManager : MonoBehaviour
     {
         if(bashTimer == null)
         {
-            bashTimer = StartCoroutine(Timer(baseCreatureBashDelay, PlayBashSound));
+            float randDuration = UnityEngine.Random.Range(baseCreatureBashDelay - .3f, baseCreatureBashDelay + .3f);
+            bashTimer = StartCoroutine(Timer(randDuration, PlayBashSound));
         }
     }
 

@@ -913,10 +913,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a66776c81360d84080915bed9698b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxCreatureStages: 2
+  maxCreatureStages: 3
   baseCreatureBashRate: 0
-  creatureBashRateIncrement: 10
-  baseCreatureBashDelay: 0.5
+  creatureBashRateIncrement: 15
+  baseCreatureBashDelay: 0.6
   endDelay: 4
   endingData:
   - name: NoVisage_CreatureAlerted
@@ -944,7 +944,7 @@ MonoBehaviour:
       without the
       entity noticing your gaze.'
   - name: NoVisage_CreatureUnAlerted
-    flavorText: 'The entities presence is gone,
+    flavorText: 'The entity''s presence is gone,
 
       you are the last witness.'
     explanationText: 'You got rid of all abnormalities,
@@ -1101,7 +1101,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   detectionRadius: 2
-  creatureGracePeriod: 2
+  creatureGracePeriod: 1.5
   spriteMask: {fileID: 632476772}
   elapsedTime: 0
 --- !u!1 &1095492859
@@ -1750,8 +1750,8 @@ MonoBehaviour:
     sounds:
     - identifier: Bash1
       clip: {fileID: 8300000, guid: fc846dc19f1a85743b2d56fadb5fe345, type: 3}
-      volume: 0.6
-      pitch: 0.3
+      volume: 0.3
+      pitch: 0.2
       loop: 0
       is3D: 1
       rolloffMode: 1
@@ -1759,8 +1759,8 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash1b
       clip: {fileID: 8300000, guid: fc846dc19f1a85743b2d56fadb5fe345, type: 3}
-      volume: 0.6
-      pitch: 0.5
+      volume: 0.3
+      pitch: 0.3
       loop: 0
       is3D: 1
       rolloffMode: 1
@@ -1768,8 +1768,8 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash2
       clip: {fileID: 8300000, guid: b779c9ad941dc0546a8f7e9ba6605097, type: 3}
-      volume: 0.6
-      pitch: 0.3
+      volume: 0.3
+      pitch: 0.2
       loop: 0
       is3D: 1
       rolloffMode: 1
@@ -1777,8 +1777,8 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash2b
       clip: {fileID: 8300000, guid: b779c9ad941dc0546a8f7e9ba6605097, type: 3}
-      volume: 0.6
-      pitch: 0.5
+      volume: 0.3
+      pitch: 0.3
       loop: 0
       is3D: 1
       rolloffMode: 1
@@ -1786,8 +1786,8 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash3a
       clip: {fileID: 8300000, guid: fa64faec4d4d85246be20c3f854057f6, type: 3}
-      volume: 0.6
-      pitch: 0.3
+      volume: 0.3
+      pitch: 0.2
       loop: 0
       is3D: 1
       rolloffMode: 1
@@ -1795,8 +1795,8 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash3b
       clip: {fileID: 8300000, guid: fa64faec4d4d85246be20c3f854057f6, type: 3}
-      volume: 0.6
-      pitch: 0.5
+      volume: 0.3
+      pitch: 0.3
       loop: 0
       is3D: 1
       rolloffMode: 1
@@ -1812,6 +1812,45 @@ MonoBehaviour:
       pitch: 1
       loop: 0
       is3D: 1
+      rolloffMode: 1
+      minMaxRollof: {x: 0, y: 500}
+      audioSource: {fileID: 0}
+  - identifier: Ambience
+    audioGroup: {fileID: 2091506240233830163, guid: eee74608e86f74e42ab47029f1ca316f, type: 2}
+    sourceObject: {fileID: 0}
+    sounds:
+    - identifier: Ambience
+      clip: {fileID: 8300000, guid: d0c15dfe0e66095438f1bea92d52cd90, type: 3}
+      volume: 0.2
+      pitch: 1
+      loop: 1
+      is3D: 0
+      rolloffMode: 1
+      minMaxRollof: {x: 0, y: 500}
+      audioSource: {fileID: 0}
+  - identifier: MonsterSignal
+    audioGroup: {fileID: 2091506240233830163, guid: eee74608e86f74e42ab47029f1ca316f, type: 2}
+    sourceObject: {fileID: 0}
+    sounds:
+    - identifier: MonsterSignal1
+      clip: {fileID: 8300000, guid: 713a9da114ad3344a80f47babff5ecc2, type: 3}
+      volume: 0.2
+      pitch: 0.8
+      loop: 0
+      is3D: 0
+      rolloffMode: 1
+      minMaxRollof: {x: 0, y: 500}
+      audioSource: {fileID: 0}
+  - identifier: CoinScratch
+    audioGroup: {fileID: 2091506240233830163, guid: eee74608e86f74e42ab47029f1ca316f, type: 2}
+    sourceObject: {fileID: 0}
+    sounds:
+    - identifier: MonsterSignal1
+      clip: {fileID: 8300000, guid: 9526127959fd4d64288e42a3f0f8297e, type: 3}
+      volume: 1
+      pitch: 1
+      loop: 0
+      is3D: 0
       rolloffMode: 1
       minMaxRollof: {x: 0, y: 500}
       audioSource: {fileID: 0}
