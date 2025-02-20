@@ -12,8 +12,10 @@ public class GameManager : MonoBehaviour
 
     [Header("Creature")]
     [SerializeField] private int maxCreatureStages;
-
-    [Header("Coin")]
+    [SerializeField] private float baseCreatureBashRate = 0;
+    [SerializeField] private float creatureBashRateIncrement = 25;
+    [SerializeField] private float baseCreatureBashDelay = .5f;
+    private Coroutine bashTimer;
 
     [Header("Ending")]
     [SerializeField] private float endDelay;
@@ -31,6 +33,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private GameObject darkness;
     [Space]
     [SerializeField] private List<GameObject> creatures = new List<GameObject>();
+    [SerializeField] private float currentCreatureBashRate;
 
     [Header("Win conditions")]
     [SerializeField] private int currentCreatureStage;
@@ -68,9 +71,11 @@ public class GameManager : MonoBehaviour
         else {  darkness.SetActive(false); }
 
         currentCreatureStage = 0;
+        currentCreatureBashRate = baseCreatureBashRate;
 
         Instantiate(scratchingCoin, coinSpawn, Quaternion.identity);
-        Instantiate(tutorialPage, tutorialPageSpawn, Quaternion.identity);
+        Page page = Instantiate(tutorialPage, tutorialPageSpawn, Quaternion.identity).GetComponent<Page>();
+        page.SetupPage(null, Color.white);
 
         OnStartGame();
     }
@@ -78,11 +83,13 @@ public class GameManager : MonoBehaviour
     private void OnStartGame()
     {
         onStartGame?.Invoke();
+        StartBashTimer();
     }
 
     public void AdvanceStage()
     {
-        currentCreatureStage += 1;  
+        currentCreatureStage += 1;
+        currentCreatureBashRate = baseCreatureBashRate + creatureBashRateIncrement * currentCreatureStage;
         
         if(currentCreatureStage > maxCreatureStages) 
         {
@@ -175,6 +182,25 @@ public class GameManager : MonoBehaviour
     {
         int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentSceneIndex);
+    }
+
+    private void StartBashTimer()
+    {
+        if(bashTimer == null)
+        {
+            bashTimer = StartCoroutine(Timer(baseCreatureBashDelay, PlayBashSound));
+        }
+    }
+
+    private void PlayBashSound()
+    {
+        float value = UnityEngine.Random.value;
+        if(value < (currentCreatureBashRate / 100))
+        {
+            AudioManager.instance.Play("MonsterBashing");
+        }
+        bashTimer = null;
+        StartBashTimer();
     }
 
     public IEnumerator Timer(float duration, Action action)

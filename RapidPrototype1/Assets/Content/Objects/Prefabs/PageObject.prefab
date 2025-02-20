@@ -101,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f835dab6b79194b8ba3400767e2648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSound: Paper
   isDragged: 0
 --- !u!61 &2724761107314723594
 BoxCollider2D:

@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16f835dab6b79194b8ba3400767e2648, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupSound: Coin
   isDragged: 0
 --- !u!114 &3968727775175150553
 MonoBehaviour:

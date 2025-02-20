@@ -4,6 +4,8 @@ using static UnityEditor.PlayerSettings;
 
 public class DragableObject : MonoBehaviour, IDragable
 {
+    [SerializeField] private string pickupSound = null;
+
     [SerializeField] private bool isDragged;
     [HideInInspector] public bool IsDragged { get => isDragged; set => isDragged = value; }
 
@@ -30,10 +32,16 @@ public class DragableObject : MonoBehaviour, IDragable
         EventHandler<IDragable>.InvokeEvent(EventTypes.DRAGABLE_REORDER, this.GetComponent<IDragable>());
         isDragged = true;
         Debug.Log($"IsDragged set to true: {isDragged}");
+
+        if(pickupSound != null)
+        {
+            AudioManager.instance.Play(pickupSound);
+        }
     }
 
     public void OnDrag(Vector2 pos)
     {
+
         // transform into relative position
         Vector3 posV3 = new Vector3(pos.x, pos.y, transform.position.z);
 

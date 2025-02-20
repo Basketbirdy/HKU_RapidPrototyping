@@ -19,7 +19,7 @@ public class Page : MonoBehaviour
     public void SetupPage(Creature creature, Color pageColor)
     {
         pageGFX.size = new Vector3(pageX, pageY, 0);
-        pageCollider.size = new Vector2(pageX, pageY);
+        pageCollider.size = new Vector3(pageX, pageY);
         visibilityCollider.size = new Vector3 (pageX, pageY, 0);
         pageGFX.GetComponent<SpriteRenderer>().color = pageColor;
 
