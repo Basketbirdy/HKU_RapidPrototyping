@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -41,11 +40,11 @@ public class AudioManager : MonoBehaviour
                 AudioSource source = null;
                 if (soundGroups[i].sourceObject == null)
                 {
-                    source = transform.AddComponent<AudioSource>();
+                    source = transform.gameObject.AddComponent<AudioSource>();
                 }
                 else
                 {
-                    source = soundGroups[i].sourceObject.transform.AddComponent<AudioSource>();
+                    source = soundGroups[i].sourceObject.transform.gameObject.AddComponent<AudioSource>();
                 }
 
                 SetupSource(source, currentSoundGroup, currentSound);
