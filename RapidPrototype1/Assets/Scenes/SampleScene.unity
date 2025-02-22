@@ -925,8 +925,8 @@ MonoBehaviour:
       The entity is coming for you.'
     explanationText: 'You got rid of all abnormalities,
 
-      but the entity had
-      already noticed your gaze.'
+      but the entity already
+      noticed your gaze.'
   - name: Visage_CreatureAlerted
     flavorText: 'You doomed them all,
 
@@ -934,7 +934,7 @@ MonoBehaviour:
     explanationText: 'You left abnormalities for others to see,
 
       and the entity
-      has noticed your gaze.'
+      noticed your gaze.'
   - name: Visage_CreatureUnAlerted
     flavorText: 'You doomed them all,
 
@@ -946,7 +946,7 @@ MonoBehaviour:
   - name: NoVisage_CreatureUnAlerted
     flavorText: 'The entity''s presence is gone,
 
-      you are the last witness.'
+      you are its last witness.'
     explanationText: 'You got rid of all abnormalities,
 
       without the entity
@@ -1369,7 +1369,7 @@ Transform:
   m_GameObject: {fileID: 1129201919}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -30}
+  m_LocalPosition: {x: 0, y: 0, z: -40}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1750,7 +1750,7 @@ MonoBehaviour:
     sounds:
     - identifier: Bash1
       clip: {fileID: 8300000, guid: fc846dc19f1a85743b2d56fadb5fe345, type: 3}
-      volume: 0.3
+      volume: 0.2
       pitch: 0.2
       loop: 0
       is3D: 1
@@ -1759,7 +1759,7 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash1b
       clip: {fileID: 8300000, guid: fc846dc19f1a85743b2d56fadb5fe345, type: 3}
-      volume: 0.3
+      volume: 0.2
       pitch: 0.3
       loop: 0
       is3D: 1
@@ -1768,7 +1768,7 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash2
       clip: {fileID: 8300000, guid: b779c9ad941dc0546a8f7e9ba6605097, type: 3}
-      volume: 0.3
+      volume: 0.2
       pitch: 0.2
       loop: 0
       is3D: 1
@@ -1777,7 +1777,7 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash2b
       clip: {fileID: 8300000, guid: b779c9ad941dc0546a8f7e9ba6605097, type: 3}
-      volume: 0.3
+      volume: 0.2
       pitch: 0.3
       loop: 0
       is3D: 1
@@ -1786,7 +1786,7 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash3a
       clip: {fileID: 8300000, guid: fa64faec4d4d85246be20c3f854057f6, type: 3}
-      volume: 0.3
+      volume: 0.2
       pitch: 0.2
       loop: 0
       is3D: 1
@@ -1795,8 +1795,17 @@ MonoBehaviour:
       audioSource: {fileID: 0}
     - identifier: Bash3b
       clip: {fileID: 8300000, guid: fa64faec4d4d85246be20c3f854057f6, type: 3}
-      volume: 0.3
+      volume: 0.2
       pitch: 0.3
+      loop: 0
+      is3D: 1
+      rolloffMode: 1
+      minMaxRollof: {x: 0, y: 500}
+      audioSource: {fileID: 0}
+    - identifier: BashScreach
+      clip: {fileID: 8300000, guid: a7acc60318e26254d9531d74096dfac8, type: 3}
+      volume: 1
+      pitch: 1
       loop: 0
       is3D: 1
       rolloffMode: 1
