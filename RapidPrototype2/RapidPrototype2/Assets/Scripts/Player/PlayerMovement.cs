@@ -44,13 +44,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
-        onWeightChange += UpdateMultipliers;
         physicsMovement = new PhysicsMovement(GetComponent<Rigidbody2D>());
+
+        EventHandler<float>.AddListener(EventStrings.PLAYER_WEIGHT_ADD, AddWeight);
+        EventHandler<float>.AddListener(EventStrings.PLAYER_WEIGHT_REMOVE, RemoveWeight);
+        onWeightChange += UpdateMultipliers;
     }
 
     private void OnDisable()
     {
         onWeightChange -= UpdateMultipliers;
+        EventHandler<float>.RemoveListener(EventStrings.PLAYER_WEIGHT_ADD, AddWeight);
+        EventHandler<float>.RemoveListener(EventStrings.PLAYER_WEIGHT_REMOVE, RemoveWeight);
     }
 
     private void Start()
@@ -73,22 +78,20 @@ public class PlayerMovement : MonoBehaviour
         physicsMovement.Move(direction, acceleration * accelerationMultiplier, speed * speedMultiplier);
     }
 
-    public bool AddWeight(float weight)
+    public void AddWeight(float weight)
     {
-        if(currentWeight + weight <= maxWeight) { currentWeight = currentWeight + weight; }
-        else { return false; }
+        if(currentWeight + weight > maxWeight) { return; }
 
+        currentWeight = currentWeight + weight;
         onWeightChange?.Invoke();
-        return true;
     }
 
-    public bool RemoveWeight(float weight)
+    public void RemoveWeight(float weight)
     {
         currentWeight -= weight;
-        if(currentWeight < 0f) {  currentWeight = 0f; return false; }
 
+        if(currentWeight < 0f) { currentWeight = 0f;}
         onWeightChange?.Invoke();
-        return true;
     }
 
     private void UpdateMultipliers()
