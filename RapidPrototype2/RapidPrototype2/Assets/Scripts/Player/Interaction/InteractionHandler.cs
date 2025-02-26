@@ -30,13 +30,13 @@ public class InteractionHandler : MonoBehaviour, IInteractor
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        IInteractable interactable = GetComponent<IInteractable>();
+        IInteractable interactable = collision.GetComponent<IInteractable>();
         AddInteractable(interactable);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        IInteractable interactable = GetComponent<IInteractable>();
+        IInteractable interactable = collision.GetComponent<IInteractable>();
         RemoveInteractable(interactable);
     }
 
@@ -57,8 +57,8 @@ public class InteractionHandler : MonoBehaviour, IInteractor
         if(interactables.Count <= 0) { return; }
         IInteractable target = interactables[index];
 
-        Debug.Log($"Target: {target}");
         if (target == null) { return; }
+        Debug.Log($"Target is not null");
         target.Interact(GetComponent<IInteractor>());
     }
 }

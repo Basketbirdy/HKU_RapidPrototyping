@@ -8,6 +8,7 @@ public class Package : MonoBehaviour, IInteractable
     [SerializeField] private float colliderRadius;
 
     private IInteractor lastInteractor;
+    private ConveyorSlot slot;
 
     private void Awake()
     {
@@ -21,5 +22,13 @@ public class Package : MonoBehaviour, IInteractable
         lastInteractor = interactor;
 
         EventHandler<float>.InvokeEvent(EventStrings.PLAYER_WEIGHT_ADD, weight);
+        if(slot != null ) { slot.EmptySlot(); }
+
+        Destroy(gameObject);
+    }
+
+    public void AssignSlot(ConveyorSlot slot)
+    {
+        this.slot = slot;
     }
 }
