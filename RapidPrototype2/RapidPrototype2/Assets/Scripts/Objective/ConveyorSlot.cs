@@ -3,10 +3,11 @@ using UnityEngine;
 [System.Serializable]
 public class ConveyorSlot
 {
-    public ConveyorSlot(int index, Direction direction, float distance)
+    public ConveyorSlot(Vector2 parentPos, int index, Direction direction, float distance)
     {
         this.index = index;
         this.distance = distance;
+        this.parentPos = parentPos;
 
         switch (direction)
         {
@@ -31,6 +32,7 @@ public class ConveyorSlot
     [Header("Data")]
     [SerializeField] private GameObject slot;
     private Vector2 position;
+    private Vector2 parentPos;
     private float distance;
 
     public void AssignSlot(GameObject obj)
@@ -39,8 +41,6 @@ public class ConveyorSlot
 
         Package package = obj.GetComponent<Package>();
         if (package != null) { package.AssignSlot(this); }
-
-        slot.transform.position = position * distance;
     }
 
     public void EmptySlot()
@@ -57,6 +57,11 @@ public class ConveyorSlot
     public GameObject GetObject()
     {
         return slot;
+    }
+
+    public Vector2 GetPosition()
+    {
+        return parentPos + (position * distance);
     }
 }
 

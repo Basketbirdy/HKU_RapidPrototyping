@@ -1,14 +1,20 @@
 using UnityEngine;
 
 [RequireComponent(typeof(CircleCollider2D))]
-public class Package : MonoBehaviour, IInteractable
+public class Package : MonoBehaviour, IInteractable, ICarriable
 {
     [Header("Settings")]
     [SerializeField] private float weight;
     [SerializeField] private float colliderRadius;
 
-    private IInteractor lastInteractor;
+    private GameObject lastInteractor;
     private ConveyorSlot slot;
+
+    private bool isCarried;
+    [HideInInspector] public bool IsCarried { get => isCarried; set => isCarried = value; }
+    [HideInInspector] public Transform CarriableTransform => transform;
+
+
 
     private void Awake()
     {
@@ -16,15 +22,18 @@ public class Package : MonoBehaviour, IInteractable
         coll.radius = colliderRadius;
     }
 
-    public void Interact(IInteractor interactor)
+    public void Interact(GameObject interactor)
     {
         Debug.Log($"Interacting with {gameObject.name}");
         lastInteractor = interactor;
 
+        ICarrier carrier = interactor.GetComponentInChildren<ICarrier>();
+        if(carrier == null) { return; }
+
         EventHandler<float>.InvokeEvent(EventStrings.PLAYER_WEIGHT_ADD, weight);
         if(slot != null ) { slot.EmptySlot(); }
 
-        Destroy(gameObject);
+        carrier.PickUp(GetComponent<ICarriable>());
     }
 
     public void AssignSlot(ConveyorSlot slot)

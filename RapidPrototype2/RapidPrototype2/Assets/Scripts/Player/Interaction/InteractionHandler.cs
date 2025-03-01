@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class InteractionHandler : MonoBehaviour, IInteractor
@@ -9,6 +10,7 @@ public class InteractionHandler : MonoBehaviour, IInteractor
 
     private CircleCollider2D interactionCollider;
 
+    [SerializeField] private List<int> debugList = new List<int>(); 
     private List<IInteractable> interactables = new List<IInteractable>();
     public List<IInteractable> Interactables { get { return interactables; } set { interactables = value; } }
 
@@ -32,24 +34,34 @@ public class InteractionHandler : MonoBehaviour, IInteractor
     {
         IInteractable interactable = collision.GetComponent<IInteractable>();
         AddInteractable(interactable);
+
+        Debug.Log($"interactables entered trigger: {interactables.Count}");
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         IInteractable interactable = collision.GetComponent<IInteractable>();
         RemoveInteractable(interactable);
+
+        Debug.Log($"interactables exited trigger: {interactables.Count}");
     }
 
     public void AddInteractable(IInteractable interactable)
     {
+        if(interactable == null) { return; }
+
         if (interactables.Contains(interactable)) { return; }
         interactables.Add(interactable);
+        debugList.Add(1);
     }
 
     public void RemoveInteractable(IInteractable interactable)
     {
+        if(interactable == null) { return; }
+
         if (!interactables.Contains(interactable)) { return; }
         interactables.Remove(interactable);
+        debugList.Remove(1);
     }
 
     public void ExecuteInteractable(int index = 0)
@@ -58,7 +70,6 @@ public class InteractionHandler : MonoBehaviour, IInteractor
         IInteractable target = interactables[index];
 
         if (target == null) { return; }
-        Debug.Log($"Target is not null");
-        target.Interact(GetComponent<IInteractor>());
+        target.Interact(transform.parent.gameObject);
     }
 }
