@@ -4,7 +4,7 @@ using NUnit.Framework.Constraints;
 
 public class Conveyor
 {
-    private MonoBehaviour owner;
+    public MonoBehaviour owner;
     private Direction conveyorDirection = Direction.LEFT;
 
     private int conveyorCount = 6;
@@ -27,7 +27,7 @@ public class Conveyor
         conveyorSlots = new ConveyorSlot[conveyorCount];
         for (int i = 0; i < conveyorCount; i++)
         {
-            conveyorSlots[i] = new ConveyorSlot(owner.transform.position, i, conveyorDirection, conveyorDistance);
+            conveyorSlots[i] = new ConveyorSlot(this, owner.transform.position, i, conveyorDirection, conveyorDistance);
         }
     }
 

@@ -10,15 +10,23 @@ public class Package : MonoBehaviour, IInteractable, ICarriable
     private GameObject lastInteractor;
     private ConveyorSlot slot;
 
+    private CircleCollider2D coll;
+
     private bool isCarried;
-    [HideInInspector] public bool IsCarried { get => isCarried; set => isCarried = value; }
+    [HideInInspector] public bool IsCarried { get => isCarried; 
+        set 
+        { 
+            isCarried = value;
+            coll.enabled = !value;
+        } 
+    }
+
     [HideInInspector] public Transform CarriableTransform => transform;
-
-
+    [HideInInspector] public float Weight => weight;
 
     private void Awake()
     {
-        CircleCollider2D coll = GetComponent<CircleCollider2D>();
+        coll = GetComponent<CircleCollider2D>();
         coll.radius = colliderRadius;
     }
 
@@ -31,7 +39,7 @@ public class Package : MonoBehaviour, IInteractable, ICarriable
         if(carrier == null) { return; }
 
         EventHandler<float>.InvokeEvent(EventStrings.PLAYER_WEIGHT_ADD, weight);
-        if(slot != null ) { slot.EmptySlot(); }
+        if(slot != null ) { slot.EmptySlot(); slot.StopCoroutines(); }
 
         carrier.PickUp(GetComponent<ICarriable>());
     }

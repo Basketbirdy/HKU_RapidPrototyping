@@ -3,8 +3,9 @@ using UnityEngine;
 [System.Serializable]
 public class ConveyorSlot
 {
-    public ConveyorSlot(Vector2 parentPos, int index, Direction direction, float distance)
+    public ConveyorSlot(Conveyor parent, Vector2 parentPos, int index, Direction direction, float distance)
     {
+        this.parent = parent;
         this.index = index;
         this.distance = distance;
         this.parentPos = parentPos;
@@ -28,6 +29,7 @@ public class ConveyorSlot
 
     [Header("Identifier")]
     private int index;
+    private Conveyor parent;
 
     [Header("Data")]
     [SerializeField] private GameObject slot;
@@ -62,6 +64,11 @@ public class ConveyorSlot
     public Vector2 GetPosition()
     {
         return parentPos + (position * distance);
+    }
+
+    public void StopCoroutines()
+    {
+        parent.owner.StopAllCoroutines();
     }
 }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public interface ICarrier
 {
@@ -8,5 +9,6 @@ public interface ICarrier
     public Queue<ICarriable> CarriableQueue { get; }
 
     public void PickUp(ICarriable carriable);
-    public void Drop(ICarriable carriable);
+    public void Drop();
+    public void Drop(Vector3 target, Action action);
 }
