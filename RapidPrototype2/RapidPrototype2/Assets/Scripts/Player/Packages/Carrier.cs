@@ -10,7 +10,8 @@ public class Carrier : MonoBehaviour, ICarrier
     [Space]
     [SerializeField] private float pickupSpeed;
     [SerializeField] private float pickupTolerance;
-    [SerializeField] private Vector2 offsetRange;
+    [SerializeField] private Vector2 offsetXRange;
+    [SerializeField] private Vector2 offsetYRange;
     [Space]
     [SerializeField] private float dropAngle = 22.5f;
     [SerializeField] private Vector2 dropRange;
@@ -91,7 +92,7 @@ public class Carrier : MonoBehaviour, ICarrier
 
         awaitMove += EndDrop;
 
-        StartCoroutine(MoveTowardsTarget(carriableToDrop, dropPosition, pickupSpeed, pickupTolerance));
+        StartCoroutine(MoveTowardsTarget(carriableToDrop, dropPosition, Vector3.zero, pickupSpeed, pickupTolerance));
     }
 
     public void Drop(Vector3 target, Action action)
@@ -107,7 +108,7 @@ public class Carrier : MonoBehaviour, ICarrier
 
         awaitMove += EndDrop;
 
-        StartCoroutine(MoveTowardsTarget(carriableToDrop, dropPosition, pickupSpeed, pickupTolerance, action));
+        StartCoroutine(MoveTowardsTarget(carriableToDrop, dropPosition, Vector3.zero, pickupSpeed, pickupTolerance, action));
     }
 
     public void PickUp(ICarriable carriable)
@@ -121,7 +122,9 @@ public class Carrier : MonoBehaviour, ICarrier
 
         awaitMove += EndPickUp;
 
-        StartCoroutine(MoveTowardsTarget(carriable, CarryPoint, pickupSpeed, pickupTolerance));
+        Vector3 offset = new Vector3(UnityEngine.Random.Range(-offsetXRange.x, offsetXRange.x),
+                                        UnityEngine.Random.Range(-offsetYRange.y, offsetYRange.y));
+        StartCoroutine(MoveTowardsTarget(carriable, CarryPoint, offset, pickupSpeed, pickupTolerance));
     }
 
     private void EndPickUp(ICarriable carriable)
@@ -154,7 +157,7 @@ public class Carrier : MonoBehaviour, ICarrier
         EventHandler<float>.InvokeEvent(EventStrings.PLAYER_WEIGHT_REMOVE, carriable.Weight);
     }
 
-    private IEnumerator MoveTowardsTarget(ICarriable carriable, Transform target, float speed, float tolerance)
+    private IEnumerator MoveTowardsTarget(ICarriable carriable, Transform target, Vector3 offset,float speed, float tolerance)
     {
         bool movingItem = true;
 
@@ -168,8 +171,7 @@ public class Carrier : MonoBehaviour, ICarrier
                 carriable.CarriableTransform.position.y <= target.position.y + tolerance && carriable.CarriableTransform.position.y > target.position.y - tolerance)
             {
                 movingItem = false;
-                carriable.CarriableTransform.position = target.position + new Vector3(UnityEngine.Random.Range(-offsetRange.x, offsetRange.x), 
-                                                                                        UnityEngine.Random.Range(-offsetRange.y, offsetRange.y));
+                carriable.CarriableTransform.position = target.position + offset;
             }
 
             yield return null;
@@ -178,7 +180,7 @@ public class Carrier : MonoBehaviour, ICarrier
         awaitMove?.Invoke(carriable);
     }
 
-    private IEnumerator MoveTowardsTarget(ICarriable carriable, Vector3 target, float speed, float tolerance, Action action = null)
+    private IEnumerator MoveTowardsTarget(ICarriable carriable, Vector3 target, Vector3 offset, float speed, float tolerance, Action action = null)
     {
         bool movingItem = true;
 
@@ -192,8 +194,7 @@ public class Carrier : MonoBehaviour, ICarrier
                 carriable.CarriableTransform.position.y <= target.y + tolerance && carriable.CarriableTransform.position.y > target.y - tolerance)
             {
                 movingItem = false;
-                carriable.CarriableTransform.position = target + new Vector3(UnityEngine.Random.Range(-offsetRange.x, offsetRange.x),
-                                                                                        UnityEngine.Random.Range(-offsetRange.y, offsetRange.y));
+                carriable.CarriableTransform.position = target + offset;
             }
 
             yield return null;

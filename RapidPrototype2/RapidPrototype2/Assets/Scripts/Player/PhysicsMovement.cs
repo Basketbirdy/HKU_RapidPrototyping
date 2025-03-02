@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class PhysicsMovement
 {
+    public System.Action onMovingChange;
+
     private bool isDisabled;
     private bool isMoving;
 
@@ -16,8 +18,8 @@ public class PhysicsMovement
     {
         if (isDisabled) { return; }
 
-        if(direction != Vector2.zero) { isMoving = true; }
-        else { isMoving = false; }
+        if(direction != Vector2.zero) { ChangeMoving(true); }
+        else { ChangeMoving(false); }
 
         if (!isMoving) { return; }
 
@@ -33,4 +35,15 @@ public class PhysicsMovement
 
     public void EnableMovement() { isDisabled = true; }
     public void DisableMovement() { isDisabled = false; }
+
+    public bool GetMoving()
+    {
+        return isMoving;
+    }
+
+    private void ChangeMoving(bool state)
+    {
+        isMoving = state;
+        onMovingChange?.Invoke();
+    }
 }

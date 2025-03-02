@@ -20,11 +20,13 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("States")]
     [SerializeField] private bool isDisabled;
-    [SerializeField] private bool isMoving;
 
     [Header("References")]
     [SerializeField] private Rigidbody2D rb;
     private PhysicsMovement physicsMovement;
+
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
 
     // movement
     private float xInput;
@@ -45,15 +47,18 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         physicsMovement = new PhysicsMovement(GetComponent<Rigidbody2D>());
+        animator = GetComponentInChildren<Animator>();
 
         EventHandler<float>.AddListener(EventStrings.PLAYER_WEIGHT_ADD, AddWeight);
         EventHandler<float>.AddListener(EventStrings.PLAYER_WEIGHT_REMOVE, RemoveWeight);
         onWeightChange += UpdateMultipliers;
+        physicsMovement.onMovingChange += UpdateAnimations;
     }
 
     private void OnDisable()
     {
         onWeightChange -= UpdateMultipliers;
+        physicsMovement.onMovingChange -= UpdateAnimations;
         EventHandler<float>.RemoveListener(EventStrings.PLAYER_WEIGHT_ADD, AddWeight);
         EventHandler<float>.RemoveListener(EventStrings.PLAYER_WEIGHT_REMOVE, RemoveWeight);
     }
@@ -109,5 +114,10 @@ public class PlayerMovement : MonoBehaviour
         xInput = Input.GetAxisRaw("Horizontal");
         yInput = Input.GetAxisRaw("Vertical");
         direction = new Vector2(xInput, yInput).normalized;
+    }
+
+    private void UpdateAnimations()
+    {
+        animator.SetBool("isMoving", physicsMovement.GetMoving());
     }
 }

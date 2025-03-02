@@ -44,14 +44,17 @@ TagManager:
   - name: Floor
     uniqueID: 2682912985
     locked: 0
-  - name: Objects
-    uniqueID: 2048895111
+  - name: Wall
+    uniqueID: 2674797613
+    locked: 0
+  - name: Conveyors
+    uniqueID: 1967368619
     locked: 0
   - name: Player
     uniqueID: 2502320153
     locked: 0
-  - name: Wall
-    uniqueID: 2674797613
+  - name: Objects
+    uniqueID: 2048895111
     locked: 0
   m_RenderingLayers:
   - Default
