@@ -79,8 +79,8 @@ public class PlayerMovement : MonoBehaviour
     {
         GetInput();
 
-        if (Input.GetKeyDown(KeyCode.O)) { AddWeight(20); }
-        if (Input.GetKeyDown(KeyCode.P)) { RemoveWeight(20); }
+        //if (Input.GetKeyDown(KeyCode.O)) { AddWeight(20); }
+        //if (Input.GetKeyDown(KeyCode.P)) { RemoveWeight(20); }
     }
 
     private void FixedUpdate()

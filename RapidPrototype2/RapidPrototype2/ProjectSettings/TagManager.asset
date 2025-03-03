@@ -50,6 +50,9 @@ TagManager:
   - name: Conveyors
     uniqueID: 1967368619
     locked: 0
+  - name: Enemy
+    uniqueID: 3605330055
+    locked: 0
   - name: Player
     uniqueID: 2502320153
     locked: 0

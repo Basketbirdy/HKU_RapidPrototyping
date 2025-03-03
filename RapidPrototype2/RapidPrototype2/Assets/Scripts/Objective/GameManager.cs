@@ -84,11 +84,6 @@ public class GameManager : MonoBehaviour
         menuUI.RemoveButtonListener(goQuitButton, QuitGame);
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyUp(KeyCode.L)) { AddTime(restoreTime); }
-    }
-
     private void StartGame()
     {
         Time.timeScale = 1.0f;
@@ -134,8 +129,8 @@ public class GameManager : MonoBehaviour
         EndGame();
     }
 
-    public void AddTime(float time)
+    public void AddTime()
     {
-        currentTime += time;
+        currentTime += restoreTime;
     }
 }

@@ -30,7 +30,7 @@ public class OutputConveyor : MonoBehaviour
 
     private void Start()
     {
-        spawnTimer = Time.time + spawnInterval;
+        //spawnTimer = Time.time + spawnInterval;
     }
 
     // Update is called once per frame
