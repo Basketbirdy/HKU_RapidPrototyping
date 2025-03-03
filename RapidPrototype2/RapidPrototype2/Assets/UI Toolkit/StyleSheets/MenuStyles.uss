@@ -1,0 +1,49 @@
+.Title {
+    font-size: 128px;
+    -unity-text-align: middle-center;
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/Fonts/BebasNeue-Regular.ttf?fileID=12800000&guid=cda8ffdbb38eb084eb42ec91c4d218cd&type=3#BebasNeue-Regular");
+    -unity-text-outline-color: rgb(255, 255, 255);
+    -unity-text-outline-width: 5px;
+    -unity-font-style: bold;
+}
+
+.button {
+    background-color: rgb(188, 188, 188);
+    transition-duration: 0.1s;
+}
+
+.button:hover {
+    scale: 1.1 1.1;
+    background-color: rgb(147, 34, 34);
+    transition-duration: 0.1s;
+}
+
+.fullscreen {
+    flex-grow: 1;
+    align-self: stretch;
+}
+
+.header {
+    font-size: 128px;
+    -unity-text-align: middle-center;
+    margin-top: 50px;
+    margin-right: 50px;
+    margin-bottom: 50px;
+    margin-left: 50px;
+    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/Fonts/BebasNeue-Regular.ttf?fileID=12800000&guid=cda8ffdbb38eb084eb42ec91c4d218cd&type=3#BebasNeue-Regular");
+    -unity-text-outline-color: rgb(255, 255, 255);
+    -unity-text-outline-width: 5px;
+    -unity-font-style: bold;
+}
+
+.text {
+    font-size: 48px;
+    -unity-text-align: middle-center;
+    -unity-font-definition: url("project://database/Assets/UI%20Toolkit/Fonts/BebasNeue-Regular.ttf?fileID=12800000&guid=cda8ffdbb38eb084eb42ec91c4d218cd&type=3#BebasNeue-Regular");
+    -unity-font-style: normal;
+    color: rgb(226, 226, 226);
+}
