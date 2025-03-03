@@ -25,8 +25,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Rigidbody2D rb;
     private PhysicsMovement physicsMovement;
 
-    [Header("Animator")]
+    [Header("Animation")]
     [SerializeField] private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    private ParticleSystem particles;
 
     // movement
     private float xInput;
@@ -48,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
     {
         physicsMovement = new PhysicsMovement(GetComponent<Rigidbody2D>());
         animator = GetComponentInChildren<Animator>();
+        spriteRenderer = animator.gameObject.GetComponent<SpriteRenderer>();
+        particles = GetComponentInChildren<ParticleSystem>();
 
         EventHandler<float>.AddListener(EventStrings.PLAYER_WEIGHT_ADD, AddWeight);
         EventHandler<float>.AddListener(EventStrings.PLAYER_WEIGHT_REMOVE, RemoveWeight);
@@ -66,6 +70,8 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         currentWeight = 0f;
+        ParticleSystem.EmissionModule emission = particles.emission;
+        emission.rateOverDistance = 0;
     }
 
     // Update is called once per frame
@@ -81,6 +87,9 @@ public class PlayerMovement : MonoBehaviour
     {
         physicsMovement.UpdatePhysics(friction * frictionMultiplier, deceleration * decelerationMultiplier);
         physicsMovement.Move(direction, acceleration * accelerationMultiplier, speed * speedMultiplier);
+
+        if(direction.x > 0 && spriteRenderer.flipX) { spriteRenderer.flipX = false; }
+        else if(direction.x < 0 && !spriteRenderer.flipX) { spriteRenderer.flipX = true; }
     }
 
     public void AddWeight(float weight)
@@ -107,6 +116,9 @@ public class PlayerMovement : MonoBehaviour
         accelerationMultiplier = 1f - accelerationDropoff.Evaluate(weightRatio);
         decelerationMultiplier = 1f - decelerationDropoff.Evaluate(weightRatio);
         frictionMultiplier = 1f - frictionDropoff.Evaluate(weightRatio);
+
+        ParticleSystem.EmissionModule emission = particles.emission;
+        emission.rateOverDistance = weightRatio * 1.2f;
     }
 
     private void GetInput()
