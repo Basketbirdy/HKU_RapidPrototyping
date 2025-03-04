@@ -46,4 +46,6 @@ public class PhysicsMovement
         isMoving = state;
         onMovingChange?.Invoke();
     }
+
+    public Rigidbody2D GetRigidbody() { return rb; }
 }

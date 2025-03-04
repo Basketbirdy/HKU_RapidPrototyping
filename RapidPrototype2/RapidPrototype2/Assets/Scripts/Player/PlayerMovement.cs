@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour, IPhysicsMover2D
 {
     [Header("Settings")]
     [Header("Movement")]
@@ -22,7 +22,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool isDisabled;
 
     [Header("References")]
-    [SerializeField] private Rigidbody2D rb;
     private PhysicsMovement physicsMovement;
 
     [Header("Animation")]
@@ -45,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float frictionMultiplier = 1f;
 
     private Action onWeightChange;
+
+    [HideInInspector] public Transform PhysicsTransform => transform;
 
     private void Awake()
     {
@@ -94,8 +95,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void AddWeight(float weight)
     {
-        if(currentWeight + weight > maxWeight) { return; }
-
         currentWeight = currentWeight + weight;
         onWeightChange?.Invoke();
     }
@@ -131,5 +130,11 @@ public class PlayerMovement : MonoBehaviour
     private void UpdateAnimations()
     {
         animator.SetBool("isMoving", physicsMovement.GetMoving());
+    }
+
+    public void AddForce(Vector2 direction, float strength, ForceMode2D mode = ForceMode2D.Force)
+    {
+        Debug.Log($"Adding force of: {direction.normalized * strength}, to {gameObject.name}", gameObject);
+        physicsMovement.GetRigidbody().AddForce(direction * strength, mode);
     }
 }
