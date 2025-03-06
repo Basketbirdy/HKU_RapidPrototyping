@@ -19,6 +19,7 @@ public class InputConveyor : MonoBehaviour, IInteractable
     private ICarrier carrier;
 
     private Action awaitDrop;
+    private bool awaitingDrop = false;
 
     private void Awake()
     {
@@ -34,6 +35,11 @@ public class InputConveyor : MonoBehaviour, IInteractable
     public void Interact(GameObject interactor)
     {
         Debug.Log("Input conveyor interacted with");
+        if (awaitingDrop) 
+        {
+            Debug.LogWarning("Still awaiting another drop! returning");
+            return; 
+        }
 
         carrier = interactor.GetComponentInChildren<ICarrier>();
         if(carrier == null) { return; }
@@ -58,6 +64,7 @@ public class InputConveyor : MonoBehaviour, IInteractable
             return;
         }
 
+        awaitingDrop = true;
         awaitDrop += EndDrop;
         carrier.Drop(closestConveyor.GetPosition(), awaitDrop);
     }
@@ -71,5 +78,7 @@ public class InputConveyor : MonoBehaviour, IInteractable
 
         closestConveyor = null;
         carrier = null;
+
+        awaitingDrop = false;
     }
 }
