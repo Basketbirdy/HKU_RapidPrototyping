@@ -13,7 +13,7 @@
         </engine:VisualElement>
     </engine:VisualElement>
     <engine:VisualElement name="GameOverMenu_Backdrop" class="fullscreen" style="flex-grow: 1; background-color: rgb(77, 58, 58); display: none; visibility: visible; overflow: hidden;">
-        <engine:Label text="Decomissioned" name="GameOverMenu_Title" parse-escape-sequences="false" class="Title header" style="margin-top: 75px; margin-right: 0; margin-bottom: 0; margin-left: 0; font-size: 96px;" />
+        <engine:Label text="Decommissioned" name="GameOverMenu_Title" parse-escape-sequences="false" class="Title header" style="margin-top: 75px; margin-right: 0; margin-bottom: 0; margin-left: 0; font-size: 96px;" />
         <engine:VisualElement name="GameOverMenu_Stats_Backdrop" style="flex-grow: 0; height: 50%; border-top-left-radius: 32px; border-top-right-radius: 32px; border-bottom-right-radius: 32px; border-bottom-left-radius: 32px; border-left-color: rgba(0, 0, 0, 0.29); border-right-color: rgba(0, 0, 0, 0.29); border-top-color: rgba(0, 0, 0, 0.29); border-bottom-color: rgba(0, 0, 0, 0.29); background-color: rgba(0, 0, 0, 0.29); border-top-width: 16px; border-right-width: 16px; border-bottom-width: 16px; border-left-width: 16px; margin-top: 75px; margin-right: 10%; margin-bottom: 75px; margin-left: 10%; justify-content: center;">
             <engine:Label text="You survived for [time] seconds" name="GameOverMenu_Stats_Label" class="text" />
         </engine:VisualElement>
