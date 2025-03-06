@@ -36,7 +36,7 @@ public class Package : MonoBehaviour, IInteractable, ICarriable
         lastInteractor = interactor;
 
         ICarrier carrier = interactor.GetComponentInChildren<ICarrier>();
-        if(carrier == null) { return; }
+        if(carrier == null || carrier.AwaitingMove) { return; }
 
         EventHandler<float>.InvokeEvent(EventStrings.PLAYER_WEIGHT_ADD, weight);
         if(slot != null ) { slot.EmptySlot(); slot.StopCoroutines(); }

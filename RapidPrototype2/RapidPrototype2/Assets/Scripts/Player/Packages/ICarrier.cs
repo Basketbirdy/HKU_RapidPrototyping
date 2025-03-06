@@ -4,6 +4,7 @@ using System;
 
 public interface ICarrier
 {
+    public bool AwaitingMove { get; }
     public Transform CarryPoint { get; }
     public List<ICarriable> Carriables { get; }
     public Queue<ICarriable> CarriableQueue { get; }

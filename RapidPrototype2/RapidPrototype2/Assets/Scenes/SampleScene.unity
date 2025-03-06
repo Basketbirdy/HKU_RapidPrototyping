@@ -61593,7 +61593,7 @@ Tilemap:
       - {fileID: -249075891, guid: 9bcd15f01fd6f1b4c9732ef2ecf61c56, type: 3}
       - {fileID: 1546886371, guid: 9bcd15f01fd6f1b4c9732ef2ecf61c56, type: 3}
       - {fileID: 1287895908, guid: 9bcd15f01fd6f1b4c9732ef2ecf61c56, type: 3}
-      m_AnimationSpeed: 12
+      m_AnimationSpeed: 12.000001
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: -1, y: -3, z: 0}
@@ -61653,7 +61653,7 @@ Tilemap:
       - {fileID: -249075891, guid: 9bcd15f01fd6f1b4c9732ef2ecf61c56, type: 3}
       - {fileID: 1546886371, guid: 9bcd15f01fd6f1b4c9732ef2ecf61c56, type: 3}
       - {fileID: 1287895908, guid: 9bcd15f01fd6f1b4c9732ef2ecf61c56, type: 3}
-      m_AnimationSpeed: 12.000001
+      m_AnimationSpeed: 12
       m_AnimationTimeOffset: 0
       m_Flags: 0
   - first: {x: 4, y: -3, z: 0}
@@ -63023,7 +63023,7 @@ MonoBehaviour:
   conveyorMoveTolerance: 0.1
   conveyorMoveSpeed: 1
   objectPrefab: {fileID: 3998291401846801530, guid: f5dcca8203a69234da9017bce2eaa1db, type: 3}
-  spawnInterval: 8
+  spawnInterval: 0.5
 --- !u!4 &1513545423
 Transform:
   m_ObjectHideFlags: 0
