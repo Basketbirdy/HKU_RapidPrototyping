@@ -19,6 +19,7 @@ MonoBehaviour:
   health: 10
   holdEffects:
   - rid: 1269883345876812107
+  - rid: 1269883345876812159
   references:
     version: 2
     RefIds:
@@ -27,3 +28,8 @@ MonoBehaviour:
       data:
         boost: 100
         statIdentifier: speed
+    - rid: 1269883345876812159
+      type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
+      data:
+        boost: 100
+        statIdentifier: acceleration

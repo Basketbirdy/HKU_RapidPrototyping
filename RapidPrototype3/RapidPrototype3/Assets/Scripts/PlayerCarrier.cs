@@ -1,6 +1,8 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerCarrier : MonoBehaviour, ICarrier
@@ -24,6 +26,12 @@ public class PlayerCarrier : MonoBehaviour, ICarrier
     private bool isCharging = false;
     private Coroutine chargeCoroutine;
 
+    [SerializeField] private SpriteRenderer throwTargetRenderer;
+    [SerializeField] private SpriteRenderer aimTargetRenderer;
+    private Vector3 throwTarget;
+    private Color originalTargetColor;
+    private Vector3 aimTarget;
+
     [HideInInspector] public Transform CarryPoint => transform;
 
     private ICarriable currentCarriable;
@@ -35,18 +43,29 @@ public class PlayerCarrier : MonoBehaviour, ICarrier
     private Action<ICarriable> awaitMove;
     private bool awaitingMove = false;
 
+    private void Start()
+    {
+        originalTargetColor = throwTargetRenderer.color;
+    }
+
     private void Update()
     {
+        UpdateTarget();
+
         if(currentCarriable == null) { return; }
 
         if (Input.GetKeyDown(throwKey))
         {
             ChargeThrow();
+            // enable line renderer
+            throwTargetRenderer.enabled = isCharging;
         }
 
         if(Input.GetKeyUp(throwKey))
         {
             ReleaseThrow();
+            // disable line renderer
+            throwTargetRenderer.enabled = isCharging;
         }
     }
 
@@ -82,18 +101,11 @@ public class PlayerCarrier : MonoBehaviour, ICarrier
     {
         // TODO - throwing
         // TODO - Remap currentThrowCharge to a value between 1 and 0
-        throwChargeRatio = MathUtils.Remap(currentThrowCharge, 0, maxThrowCharge);
         Debug.Log($"Throwing with a charge of {currentThrowCharge} and ratio of: {throwChargeRatio}");
-
-        Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector3 throwDirection = cursorWorldPos - transform.position;
-        if(throwDirection.magnitude > maxThrowDistance) { throwDirection = throwDirection.normalized * maxThrowDistance; }
-
-        Vector3 target = transform.position + throwDirection;
 
         awaitMove += EndThrow;
 
-        StartCoroutine(MoveTowardsTarget(currentCarriable, target, Vector3.zero, maxThrowSpeed * throwChargeRatio, 0.1f));
+        StartCoroutine(MoveTowardsTarget(currentCarriable, throwTarget, Vector3.zero, maxThrowSpeed * throwChargeRatio, 0.1f));
 
         currentCarriable.OnThrow();
         currentCarriable.CarriableTransform.parent = null;
@@ -117,7 +129,9 @@ public class PlayerCarrier : MonoBehaviour, ICarrier
 
     public void ReleaseThrow()
     {
-        if(chargeCoroutine != null) 
+        isCharging = false;
+
+        if (chargeCoroutine != null) 
         { 
             StopCoroutine(chargeCoroutine); 
             chargeCoroutine = null;
@@ -127,8 +141,40 @@ public class PlayerCarrier : MonoBehaviour, ICarrier
         Throw();
     }
 
+    private void UpdateTarget()
+    {
+        throwChargeRatio = MathUtils.Remap(currentThrowCharge, 0, maxThrowCharge);
+
+        Vector3 cursorWorldPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector3 throwDirection = cursorWorldPos - transform.position;
+
+        if (isCharging)
+        {
+            if(throwChargeRatio >= MathUtils.Remap(minThrowCharge, 0, maxThrowCharge))
+            {
+                throwTargetRenderer.color = new Color(originalTargetColor.r, originalTargetColor.g, originalTargetColor.b, .8f);
+            }
+            else
+            {
+                throwTargetRenderer.color = originalTargetColor;
+            }
+            if (throwDirection.magnitude > (maxThrowDistance * throwChargeRatio)) { throwDirection = throwDirection.normalized * (maxThrowDistance * throwChargeRatio); }
+            throwTarget = transform.position + throwDirection;
+            throwTarget.z = 0;
+            throwTargetRenderer.transform.position = throwTarget;
+
+            throwDirection = cursorWorldPos - transform.position;
+        }
+
+        if (throwDirection.magnitude > maxThrowDistance) { throwDirection = throwDirection.normalized * maxThrowDistance; }
+        aimTarget = transform.position + throwDirection;
+        aimTarget.z = 0f;
+        aimTargetRenderer.transform.position = aimTarget;
+    }
+
     private IEnumerator StartCharging()
     {
+        isCharging = true;
         currentThrowCharge = 0;
 
         while (currentThrowCharge < maxThrowCharge)
@@ -138,7 +184,6 @@ public class PlayerCarrier : MonoBehaviour, ICarrier
         }
 
         currentThrowCharge = maxThrowCharge;
-        isCharging = false;
     }
 
     private IEnumerator MoveTowardsTarget(ICarriable carriable, Transform target, Vector3 offset, float speed, float tolerance)
@@ -185,5 +230,12 @@ public class PlayerCarrier : MonoBehaviour, ICarrier
         }
 
         awaitMove?.Invoke(carriable);
+
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(throwTarget, .2f);
     }
 }

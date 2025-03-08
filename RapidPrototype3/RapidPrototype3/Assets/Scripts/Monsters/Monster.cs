@@ -61,6 +61,8 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
 
     public void OnLanding()
     {
+        Debug.Log($"{gameObject.name} landed! now executing landing effects");
+
         foreach (BaseMonsterEffect effect in settings.holdEffects)
         {
             if (effect.EffectMoments == EffectMoments.ONLANDING)
@@ -68,5 +70,7 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
                 effect.ApplyEffect();
             }
         }
+
+        IsCarried = false;
     }
 }
