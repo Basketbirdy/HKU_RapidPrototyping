@@ -5,10 +5,10 @@ public class PlayerMovement : MonoBehaviour
 {
     [Header("Settings")]
     [Header("Movement")]
-    [SerializeField] private float baseSpeed;
-    [SerializeField] private float baseAcceleration;
-    [SerializeField] private float baseDeceleration;
-    [SerializeField] private float baseFriction;
+    [SerializeField] private float speed;
+    [SerializeField] private float acceleration;
+    [SerializeField] private float deceleration;
+    [SerializeField] private float friction;
 
 
     // dynamic variables
@@ -25,11 +25,12 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
 
         physicsMovement = new PhysicsMovement(rb);
-        //Stat speedStat = new Stat("Speed", baseSpeed);
-        //Stat accelerationStat = new Stat("Acceleration", baseAcceleration);
-        //Stat decelerationStat = new Stat("Deceleration", baseDeceleration);
-        //Stat frictionStat = new Stat("Friction", baseFriction);
-        stats = new PlayerStats(baseSpeed, baseAcceleration, baseDeceleration, baseFriction);
+
+        FloatStat speedStat = new FloatStat(nameof(speed), speed);
+        FloatStat accelerationStat = new FloatStat(nameof(acceleration), acceleration);
+        FloatStat decelerationStat = new FloatStat(nameof(deceleration), deceleration);
+        FloatStat frictionStat = new FloatStat(nameof(friction), friction);
+        stats = new PlayerStats(speedStat, accelerationStat, decelerationStat, frictionStat);
     }
 
     private void Start()
@@ -40,12 +41,12 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         GetInput();
-        physicsMovement.Move(direction, stats.GetAcceleration(), stats.GetSpeed());
+        physicsMovement.Move(direction, stats.GetFloatStat(nameof(acceleration)), stats.GetFloatStat(nameof(speed)));
     }
 
     private void FixedUpdate()
     {
-        physicsMovement.UpdatePhysics(stats.GetFriction(), stats.GetDeceleration());
+        physicsMovement.UpdatePhysics(stats.GetFloatStat(nameof(friction)), stats.GetFloatStat(nameof(deceleration)));
     }
 
     private void GetInput()
@@ -58,9 +59,19 @@ public class PlayerMovement : MonoBehaviour
 
     public void ResetStats()
     {
-        stats.SetSpeed(baseSpeed);
-        stats.SetAcceleration(baseAcceleration);
-        stats.SetDeceleration(baseDeceleration);
-        stats.SetFriction(baseFriction);
+        stats.SetFloatStat(nameof(speed), speed);
+        stats.SetFloatStat(nameof(acceleration), acceleration);
+        stats.SetFloatStat(nameof(deceleration), deceleration);
+        stats.SetFloatStat(nameof(friction), friction);
     } 
+
+    public void PrintStats()
+    {
+        Debug.Log("------- Stats --------");
+        Debug.Log($"Speed: {stats.GetFloatStat(nameof(speed))}");
+        Debug.Log($"Acceleration: {stats.GetFloatStat(nameof(acceleration))}");
+        Debug.Log($"Deceleration: {stats.GetFloatStat(nameof(deceleration))}");
+        Debug.Log($"Friction: {stats.GetFloatStat(nameof(friction))}");
+        Debug.Log("------- Stats --------");
+    }
 }

@@ -14,10 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: NewMonster
   description: A basic ass monster. Nothing special. Very uninteresting.
-  speed: 5
+  speed: 2
   damage: 1
   health: 10
-  holdEffects: []
+  holdEffects:
+  - rid: 1269883345876812107
   references:
     version: 2
-    RefIds: []
+    RefIds:
+    - rid: 1269883345876812107
+      type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
+      data:
+        boost: 100
+        statIdentifier: speed

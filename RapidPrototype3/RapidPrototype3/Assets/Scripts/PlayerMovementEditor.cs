@@ -9,10 +9,15 @@ public class PlayerMovementEditor : Editor
     {
         base.OnInspectorGUI();
 
+        PlayerMovement script = (PlayerMovement)target;
         if(GUILayout.Button("Reset initial stats"))
         {
-            PlayerMovement script = (PlayerMovement)target;
             script.ResetStats();
+        }
+        GUILayout.Space(10);
+        if (GUILayout.Button("Print current stats"))
+        {
+            script.PrintStats();
         }
     }
 }

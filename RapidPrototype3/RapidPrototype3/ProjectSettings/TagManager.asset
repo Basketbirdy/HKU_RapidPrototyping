@@ -8,11 +8,11 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - IgnoreCollision
   - Water
   - UI
   - Monster
-  - 
+  - Player
   - 
   - 
   - 
@@ -40,6 +40,15 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Grass
+    uniqueID: 2941934487
+    locked: 0
+  - name: Monster
+    uniqueID: 890345723
+    locked: 0
+  - name: Player
+    uniqueID: 1313289797
     locked: 0
   m_RenderingLayers:
   - Default

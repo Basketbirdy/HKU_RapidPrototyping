@@ -33,6 +33,6 @@ public class MonsterData : ScriptableObject
     [ContextMenu("Add PercentageBoost")]
     public void AddPercentageBoost()
     {
-        holdEffects.Add(new PercentageBoost());
+        holdEffects.Add(new PercentageBoost(0, "NewPercentageBoost"));
     }
 }

@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour, IInteractable, ICarriable
 {
-    [SerializeField] private float speed;
+    [SerializeField] private MonsterData settings;
 
     [SerializeField] private Transform target;
 
@@ -10,6 +10,11 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
 
     private bool isCarried;
     public bool IsCarried { get => isCarried; set => isCarried  = value; }
+
+    private void Awake()
+    {
+        settings.SetupStats(Object.FindFirstObjectByType<PlayerMovement>().stats);
+    }
 
     public void Interact(GameObject interactor)
     {
@@ -26,7 +31,7 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
 
     private void Move()
     {
-        float step = Time.deltaTime * speed;
+        float step = Time.deltaTime * settings.speed;
         Vector2 newPos = Vector2.MoveTowards(transform.position, target.position, step);
         transform.position = newPos;
         //Debug.Log($"New position: {newPos}: Step: {step}", gameObject);
@@ -34,10 +39,34 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
 
     public void OnCarry()
     {
-        
+        foreach(BaseMonsterEffect effect in settings.holdEffects) 
+        {
+            if(effect.EffectMoments == EffectMoments.ONCARRY)
+            {
+                effect.ApplyEffect();
+            }
+        }
     }
 
     public void OnThrow()
     {
+        foreach (BaseMonsterEffect effect in settings.holdEffects)
+        {
+            if (effect.EffectMoments == EffectMoments.ONCARRY)
+            {
+                effect.RemoveEffect();
+            }
+        }
+    }
+
+    public void OnLanding()
+    {
+        foreach (BaseMonsterEffect effect in settings.holdEffects)
+        {
+            if (effect.EffectMoments == EffectMoments.ONLANDING)
+            {
+                effect.ApplyEffect();
+            }
+        }
     }
 }

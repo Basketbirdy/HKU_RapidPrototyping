@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public interface ICarriable
@@ -8,4 +9,5 @@ public interface ICarriable
 
     public void OnCarry();
     public void OnThrow();
+    public void OnLanding();
 }
