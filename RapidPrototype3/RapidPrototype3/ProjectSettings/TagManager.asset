@@ -50,8 +50,11 @@ TagManager:
   - name: Player
     uniqueID: 1313289797
     locked: 0
-  - name: Line
+  - name: Effects
     uniqueID: 1928681183
+    locked: 0
+  - name: Particles
+    uniqueID: 3804856293
     locked: 0
   m_RenderingLayers:
   - Default

@@ -16,6 +16,11 @@ public class AOEDamage : BaseMonsterEffect
 
     public override void ApplyEffect()
     {
+        InstanceChange burstChange = new InstanceChange("Burst", radius / 1.5f);
+        InstanceChange outerRingChange = new InstanceChange("OuterRing", radius);
+        ParticleHandler.instance.AlterEmissionRadius("LandingParticles", radius, burstChange, outerRingChange);
+        ParticleHandler.instance.PlayEffectAtPosition("LandingParticles", self.transform.position);
+
         IDamagable[] damagables = HitCheck();
         if(damagables.Length <= 0) { return; }
 

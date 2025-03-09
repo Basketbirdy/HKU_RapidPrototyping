@@ -36,4 +36,4 @@ MonoBehaviour:
       data:
         effectName: AOEDamage
         damage: 4
-        radius: 2.5
+        radius: 5
