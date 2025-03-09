@@ -1,24 +1,41 @@
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class Monster : MonoBehaviour, IInteractable, ICarriable
+public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 {
     [SerializeField] private MonsterData settings;
     [SerializeField] private Transform target;
     [SerializeField] private LayerMask collisionMask;
 
+    // collision variables
+    private CircleCollider2D coll;
+    [SerializeField] private bool isCollisionActive = true;
+
+    // carriable properties
     public Transform CarriableTransform => transform;
 
     private bool isCarried;
     public bool IsCarried { get => isCarried; set => isCarried  = value; }
 
-    private CircleCollider2D coll;
-    [SerializeField] private bool isCollisionActive = true;
+    // damagable properties
+    private float currentHealth;
+    public float CurrentHealth { get => currentHealth; }
+
+    [SerializeField] private bool isInvincible;
+    public bool IsInvincible { get => isInvincible; set => isInvincible = value; }
+
 
     private void Awake()
     {
         coll = GetComponent<CircleCollider2D>();
-        settings.SetupStats(Object.FindFirstObjectByType<PlayerManager>().PlayerStats);
+        settings.Setup(Object.FindFirstObjectByType<PlayerManager>().PlayerStats, gameObject);
     }
+
+    private void Start()
+    {
+        currentHealth = settings.health;
+    }
+
     private void Update()
     {
         if (IsCarried) { return; }
@@ -82,7 +99,7 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
     {
         foreach(BaseMonsterEffect effect in settings.holdEffects) 
         {
-            if(effect.EffectMoments == EffectMoments.ONCARRY)
+            if(effect.EffectMoment == EffectMoment.ONCARRY)
             {
                 effect.ApplyEffect();
             }
@@ -93,7 +110,7 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
     {
         foreach (BaseMonsterEffect effect in settings.holdEffects)
         {
-            if (effect.EffectMoments == EffectMoments.ONCARRY)
+            if (effect.EffectMoment == EffectMoment.ONCARRY)
             {
                 effect.RemoveEffect();
             }
@@ -106,7 +123,7 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
 
         foreach (BaseMonsterEffect effect in settings.holdEffects)
         {
-            if (effect.EffectMoments == EffectMoments.ONLANDING)
+            if (effect.EffectMoment == EffectMoment.ONLANDING)
             {
                 effect.ApplyEffect();
             }
@@ -115,4 +132,23 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
         isCollisionActive = true;
         IsCarried = false;
     }
+
+    public void TakeDamage(float damage)
+    {
+        Debug.Log($"Damaging {gameObject.name} for {damage} damage");
+
+        float newHealth = currentHealth - damage;
+
+        Debug.Log($"New health is {newHealth}");
+
+        if (newHealth > 0)
+        {
+            currentHealth = newHealth;
+            return;
+        }
+
+        Die();
+    }
+
+    public void Die() { gameObject.SetActive(false); }
 }

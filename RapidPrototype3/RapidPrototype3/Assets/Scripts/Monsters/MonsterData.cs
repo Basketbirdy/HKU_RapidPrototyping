@@ -14,6 +14,7 @@ public class MonsterData : ScriptableObject
 
     [Header("Offense")]
     public float damage;
+    public LayerMask hitMask; // the layers that will get hit when the monster lands
     
     [Header("Defense")]
     public float health;
@@ -21,18 +22,36 @@ public class MonsterData : ScriptableObject
     [Header("Other")]
     [SerializeReference] public List<BaseMonsterEffect> holdEffects;
 
-    public void SetupStats(PlayerStats stats)
+    public void Setup(PlayerStats stats, GameObject self)
     {
         foreach (BaseMonsterEffect effect in holdEffects)
         {
-            effect.SetupStats(stats);
+            effect.Setup(stats, self);
         }
     }
 
     // add types of boosts
-    [ContextMenu("Add PercentageBoost")]
+    [ContextMenu("Stats/Float/PercentageBoost")]
     public void AddPercentageBoost()
     {
-        holdEffects.Add(new PercentageBoost(0, "NewPercentageBoost"));
+        holdEffects.Add(new PercentageBoost(EffectMoment.ONCARRY, "NewPercentageBoost", 0));
+    }
+
+    [ContextMenu("Damaging/HurtSelf")]
+    public void AddHurtSelf()
+    {
+        holdEffects.Add(new HurtSelf(EffectMoment.ONLANDING, damage));
+    }
+
+    [ContextMenu("Damaging/AOE/AOEDamage/OnLanding")]
+    public void AddAOEDamageOnLand()
+    {
+        holdEffects.Add(new AOEDamage(EffectMoment.ONLANDING, damage));
+    }
+
+    [ContextMenu("Damaging/AOE/AOEDamage/OnCarry")]
+    public void AddAOEDamageOnCarry()
+    {
+        holdEffects.Add(new AOEDamage(EffectMoment.ONCARRY, damage));
     }
 }
