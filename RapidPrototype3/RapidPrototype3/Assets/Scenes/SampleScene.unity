@@ -6336,6 +6336,71 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
+--- !u!1 &226203260
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 226203261}
+  - component: {fileID: 226203263}
+  - component: {fileID: 226203262}
+  m_Layer: 0
+  m_Name: UI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &226203261
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226203260}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &226203262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226203260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a2e49493430354bbf55fe79a5eb36d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  document: {fileID: 226203263}
+--- !u!114 &226203263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 226203260}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 19102, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PanelSettings: {fileID: 11400000, guid: ee31b545f4772004189d29082262656e, type: 2}
+  m_ParentUI: {fileID: 0}
+  sourceAsset: {fileID: 9197481963319205126, guid: 2f5b1828703c65244908344b07e8418e, type: 3}
+  m_SortingOrder: 0
+  m_WorldSpaceSizeMode: 1
+  m_WorldSpaceWidth: 1920
+  m_WorldSpaceHeight: 1080
 --- !u!1 &240749417
 GameObject:
   m_ObjectHideFlags: 0
@@ -6677,10 +6742,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 835306238}
+  - component: {fileID: 835306242}
   - component: {fileID: 835306240}
+  - component: {fileID: 835306243}
   - component: {fileID: 835306239}
   - component: {fileID: 835306241}
-  - component: {fileID: 835306242}
+  - component: {fileID: 835306244}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -6804,6 +6871,33 @@ CircleCollider2D:
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: -0.5}
   m_Radius: 0.5
+--- !u!114 &835306243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835306237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 19b805d9142c04249be7753f5c183e73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &835306244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 835306237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6723eed8fe508149aab56f0db503923, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  invincibility: 3
+  isInvincible: 0
 --- !u!1 &844608285
 GameObject:
   m_ObjectHideFlags: 0
@@ -45392,6 +45486,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   settings: {fileID: 11400000, guid: 8fcd8f66a9e995a46bb5177b9ed75b77, type: 2}
   target: {fileID: 835306238}
+  collisionMask:
+    serializedVersion: 2
+    m_Bits: 128
+  isCollisionActive: 1
 --- !u!4 &2059014805
 Transform:
   m_ObjectHideFlags: 0
@@ -45438,7 +45536,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
@@ -45482,3 +45580,4 @@ SceneRoots:
   - {fileID: 835306238}
   - {fileID: 2059014805}
   - {fileID: 1820613656}
+  - {fileID: 226203261}

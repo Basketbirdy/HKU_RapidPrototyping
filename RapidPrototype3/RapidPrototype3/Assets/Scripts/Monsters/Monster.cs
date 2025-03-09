@@ -3,30 +3,71 @@ using UnityEngine;
 public class Monster : MonoBehaviour, IInteractable, ICarriable
 {
     [SerializeField] private MonsterData settings;
-
     [SerializeField] private Transform target;
+    [SerializeField] private LayerMask collisionMask;
 
     public Transform CarriableTransform => transform;
 
     private bool isCarried;
     public bool IsCarried { get => isCarried; set => isCarried  = value; }
 
+    private CircleCollider2D coll;
+    [SerializeField] private bool isCollisionActive = true;
+
     private void Awake()
     {
-        settings.SetupStats(Object.FindFirstObjectByType<PlayerMovement>().stats);
+        coll = GetComponent<CircleCollider2D>();
+        settings.SetupStats(Object.FindFirstObjectByType<PlayerManager>().PlayerStats);
+    }
+    private void Update()
+    {
+        if (IsCarried) { return; }
+        Move();
+    }
+
+    private void FixedUpdate()
+    {
+        if (!isCollisionActive) { return; }
+        CollisionCheck();
+    }
+
+    //private void OnTriggerStay2D(Collider2D collision)
+    //{
+    //    Debug.Log($"Something inside of trigger; {collision.gameObject.name}");
+
+    //    IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
+    //    if (damagable == null) { return; }
+
+    //    if (damagable.IsInvincible) { return; }
+    //    damagable.TakeDamage(settings.damage);
+    //}
+
+    private void CollisionCheck()
+    {
+        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, coll.radius, collisionMask);
+        if(hits.Length <= 0 ) { return; }
+
+        foreach(Collider2D hit in hits)
+        {
+            Debug.Log($"Something inside of trigger; {hit.gameObject.name}");
+
+            IDamagable damagable = hit.gameObject.GetComponent<IDamagable>();
+            if (damagable == null) { return; }
+
+            if (damagable.IsInvincible) { return; }
+            damagable.TakeDamage(settings.damage);
+        }
     }
 
     public void Interact(GameObject interactor)
     {
         Debug.Log($"Interacting with: {gameObject.name}");
         ICarrier carrier = interactor.GetComponentInChildren<ICarrier>();
-        if (carrier != null) { carrier.PickUp(this); }
-    }
-
-    private void Update()
-    {
-        if (IsCarried) { return; }
-        Move();
+        if (carrier != null) 
+        {
+            isCollisionActive = false;
+            carrier.PickUp(this); 
+        }
     }
 
     private void Move()
@@ -71,6 +112,7 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable
             }
         }
 
+        isCollisionActive = true;
         IsCarried = false;
     }
 }

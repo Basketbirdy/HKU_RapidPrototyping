@@ -1,0 +1,15 @@
+<engine:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:engine="UnityEngine.UIElements" xmlns:editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/StyleSheets/StyleSelectors.uss?fileID=7433441132597879392&amp;guid=5592c9cf03abadc4dab4cc562bde904b&amp;type=3#StyleSelectors" />
+    <engine:VisualElement name="Element_Base" class="baseElement" style="flex-grow: 1;">
+        <engine:VisualElement name="Element_Header" class="baseLayoutElement" style="flex-grow: 0; flex-direction: row; height: 20%;" />
+        <engine:VisualElement name="Element_Body" class="baseLayoutElement" style="flex-grow: 0; flex-direction: row; height: 60%;" />
+        <engine:VisualElement name="Element_Footer" class="baseLayoutElement" style="flex-grow: 0; flex-direction: row; height: 20%;">
+            <engine:VisualElement name="Element_HealthBar" style="flex-grow: 1; position: absolute; width: 500px; height: 150px; background-color: rgba(0, 0, 0, 0); background-image: url(&quot;project://database/Assets/y_ThirdParty/HealthbarBackground.png?fileID=279615108&amp;guid=ab4125e3c8403f045a36409428f2df08&amp;type=3#HealthbarBackground_0&quot;); overflow: visible;">
+                <engine:VisualElement name="Element_HealthBarMask" style="flex-grow: 1; position: absolute; width: 88%; height: 100%; overflow: hidden;">
+                    <engine:VisualElement name="Element_HealthBarFill" style="flex-grow: 1; background-color: rgba(0, 0, 0, 0); overflow: visible; width: 500px; height: 100%; background-image: url(&quot;project://database/Assets/y_ThirdParty/HealthBarFill.png?fileID=1760224441&amp;guid=39e3b23d857de7f42bad333a0268a219&amp;type=3#HealthBarFill_0&quot;); visibility: visible; position: absolute; -unity-background-scale-mode: stretch-to-fill; background-position-x: center 0; background-position-y: center 0;" />
+                </engine:VisualElement>
+                <engine:Label text="Label" name="Label_HealthBar" style="position: absolute; width: 100%; height: 100%; -unity-text-align: middle-left; font-size: 28px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 50px;" />
+            </engine:VisualElement>
+        </engine:VisualElement>
+    </engine:VisualElement>
+</engine:UXML>

@@ -15,7 +15,7 @@ MonoBehaviour:
   monsterName: NewMonster
   description: A basic ass monster. Nothing special. Very uninteresting.
   speed: 2
-  damage: 1
+  damage: 49
   health: 10
   holdEffects:
   - rid: 1269883345876812107
