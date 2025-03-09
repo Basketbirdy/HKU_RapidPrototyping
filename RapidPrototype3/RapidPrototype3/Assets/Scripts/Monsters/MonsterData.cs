@@ -46,12 +46,12 @@ public class MonsterData : ScriptableObject
     [ContextMenu("Damaging/AOE/AOEDamage/OnLanding")]
     public void AddAOEDamageOnLand()
     {
-        holdEffects.Add(new AOEDamage(EffectMoment.ONLANDING, damage));
+        holdEffects.Add(new AOEDamage(EffectMoment.ONLANDING, damage, hitMask));
     }
 
     [ContextMenu("Damaging/AOE/AOEDamage/OnCarry")]
     public void AddAOEDamageOnCarry()
     {
-        holdEffects.Add(new AOEDamage(EffectMoment.ONCARRY, damage));
+        holdEffects.Add(new AOEDamage(EffectMoment.ONCARRY, damage, hitMask));
     }
 }

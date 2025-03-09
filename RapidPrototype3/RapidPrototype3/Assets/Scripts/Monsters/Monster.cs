@@ -7,9 +7,13 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
     [SerializeField] private Transform target;
     [SerializeField] private LayerMask collisionMask;
 
+    [Header("Graphics")]
+    [SerializeField] private MonsterGFX gfx;
+    private bool isFlipped = false;
+
     // collision variables
     private CircleCollider2D coll;
-    [SerializeField] private bool isCollisionActive = true;
+    private bool isCollisionActive = true;
 
     // carriable properties
     public Transform CarriableTransform => transform;
@@ -21,7 +25,7 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
     private float currentHealth;
     public float CurrentHealth { get => currentHealth; }
 
-    [SerializeField] private bool isInvincible;
+    private bool isInvincible;
     public bool IsInvincible { get => isInvincible; set => isInvincible = value; }
 
 
@@ -66,8 +70,6 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 
         foreach(Collider2D hit in hits)
         {
-            Debug.Log($"Something inside of trigger; {hit.gameObject.name}");
-
             IDamagable damagable = hit.gameObject.GetComponent<IDamagable>();
             if (damagable == null) { return; }
 
@@ -93,6 +95,15 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
         Vector2 newPos = Vector2.MoveTowards(transform.position, target.position, step);
         transform.position = newPos;
         //Debug.Log($"New position: {newPos}: Step: {step}", gameObject);
+        EvaluateDirection();
+    }
+
+    private void EvaluateDirection()
+    {
+        Vector2 direction = target.position - transform.position;
+
+        if(direction.normalized.x > 0 && !isFlipped) { isFlipped = true; gfx.Flip(true); }
+        if(direction.normalized.x < 0 && isFlipped) { isFlipped = false;  gfx.Flip(false); }
     }
 
     public void OnCarry()
@@ -151,4 +162,25 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
     }
 
     public void Die() { gameObject.SetActive(false); }
+}
+
+[System.Serializable]
+public struct MonsterGFX
+{
+    public GFXPiece[] pieces;
+
+    public void Flip(bool state)
+    {
+        foreach(GFXPiece piece in pieces)
+        {
+            piece.renderer.flipX = state;
+        }
+    }
+}
+
+[System.Serializable]
+public struct GFXPiece
+{
+    public string name;
+    public SpriteRenderer renderer;
 }

@@ -76,6 +76,21 @@ public class UserInterfaceHandler : MonoBehaviour
         if (!visualElements.ContainsKey(key)) { return; }
         visualElements[key].style.backgroundImage = new StyleBackground(sprite);
     }
+    public void ResizeVisualElement(string key, float width, float height, bool isPercentage)
+    {
+        if (!visualElements.ContainsKey(key)) { return; }
+
+        if (isPercentage)
+        {
+            visualElements[key].style.width = Length.Percent(width);
+            visualElements[key].style.height = Length.Percent(height);
+        }
+        else
+        {
+            visualElements[key].style.width = width;
+            visualElements[key].style.height = height;
+        }
+    }
 
     public void AddButtonRef(string key)
     {

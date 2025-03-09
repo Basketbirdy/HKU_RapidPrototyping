@@ -32,6 +32,7 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         Debug.Log($"Damaging {gameObject.name} for {damage} damage");
 
         float newHealth = currentHealth - damage;
+        EventHandler<HealthChangeInfo>.InvokeEvent(EventStrings.PLAYER_UI_ONHEALTHCHANGE, new HealthChangeInfo(newHealth, stats.GetFloatStat(nameof(health))));
 
         Debug.Log($"New health is {newHealth}");
 
@@ -87,5 +88,17 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 
         IsInvincible = false;
         Debug.Log($"{gameObject.name} is NO LONGER invincible");
+    }
+}
+
+public struct HealthChangeInfo
+{
+    public float currentHealth;
+    public float currentMaxHealth;
+
+    public HealthChangeInfo(float currentHealth, float currentMaxHealth)
+    {
+        this.currentHealth = currentHealth;
+        this.currentMaxHealth = currentMaxHealth;
     }
 }
