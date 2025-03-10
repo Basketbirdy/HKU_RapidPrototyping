@@ -1,9 +1,9 @@
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 {
-    [SerializeField] private MonsterData monsterData;
     [SerializeField] private MonsterData settings;
 
     [SerializeField] private Transform target;
@@ -30,12 +30,15 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
     private bool isInvincible;
     public bool IsInvincible { get => isInvincible; set => isInvincible = value; }
 
+    [Header("Effects")]
+    [SerializeReference] List<BaseMonsterEffect> holdEffects;
 
     private void Awake()
     {
         coll = GetComponent<CircleCollider2D>();
-        settings = new MonsterData(monsterData);
-        settings.name = gameObject.name;
+        //settings = new MonsterData(monsterData);
+        //settings = (MonsterData)ScriptableObject.CreateInstance("MonsterData");
+        //settings.name = gameObject.name;
     }
 
     private void Start()
@@ -44,7 +47,12 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
         {
             IsCarried = true;
         }
-        settings.Setup(Object.FindFirstObjectByType<PlayerManager>().PlayerStats, gameObject);
+
+        PlayerStats stats = FindAnyObjectByType<PlayerManager>().PlayerStats;
+        foreach (BaseMonsterEffect effect in holdEffects)
+        {
+            effect.Setup(stats, gameObject);
+        }
         currentHealth = settings.health;
     }
 
@@ -123,9 +131,10 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 
     public void OnCarry()
     {
-        foreach(BaseMonsterEffect effect in settings.holdEffects) 
+        foreach(BaseMonsterEffect effect in holdEffects) 
         {
-            if(effect.EffectMoment == EffectMoment.ONCARRY)
+            Debug.Log($"effect: {effect.ToString()}, moment: {effect.effectMoment}");
+            if(effect.effectMoment == EffectMoment.ONCARRY)
             {
                 effect.ApplyEffect();
             }
@@ -134,9 +143,10 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 
     public void OnThrow()
     {
-        foreach (BaseMonsterEffect effect in settings.holdEffects)
+        foreach (BaseMonsterEffect effect in holdEffects)
         {
-            if (effect.EffectMoment == EffectMoment.ONCARRY)
+            Debug.Log($"effect: {effect.ToString()}, moment: {effect.effectMoment}");
+            if (effect.effectMoment == EffectMoment.ONCARRY)
             {
                 effect.RemoveEffect();
             }
@@ -147,9 +157,9 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
     {
         Debug.Log($"{gameObject.name} landed! now executing landing effects");
 
-        foreach (BaseMonsterEffect effect in settings.holdEffects)
+        foreach (BaseMonsterEffect effect in holdEffects)
         {
-            if (effect.EffectMoment == EffectMoment.ONLANDING)
+            if (effect.effectMoment == EffectMoment.ONLANDING)
             {
                 effect.ApplyEffect();
             }
@@ -180,6 +190,31 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
     {
         EventHandler.InvokeEvent(EventStrings.MONSTER_KILLED);
         gameObject.SetActive(false); 
+    }
+
+    // add types of boosts
+    [ContextMenu("Stats/Float/PercentageBoost")]
+    public void AddPercentageBoost()
+    {
+        holdEffects.Add(new PercentageBoost(EffectMoment.ONCARRY, "NewPercentageBoost", 0));
+    }
+
+    [ContextMenu("Damaging/HurtSelf")]
+    public void AddHurtSelf()
+    {
+        holdEffects.Add(new HurtSelf(EffectMoment.ONLANDING, settings.damage));
+    }
+
+    [ContextMenu("Damaging/AOE/AOEDamage/OnLanding")]
+    public void AddAOEDamageOnLand()
+    {
+        holdEffects.Add(new AOEDamage(EffectMoment.ONLANDING, settings.damage));
+    }
+
+    [ContextMenu("Damaging/AOE/AOEDamage/OnCarry")]
+    public void AddAOEDamageOnCarry()
+    {
+        holdEffects.Add(new AOEDamage(EffectMoment.ONCARRY, settings.damage));
     }
 }
 

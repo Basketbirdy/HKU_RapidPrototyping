@@ -20,10 +20,10 @@ public class MonsterData : ScriptableObject
     [Header("Defense")]
     public float health;
 
-    [Header("Other")]
-    [SerializeReference] public List<BaseMonsterEffect> holdEffects = new List<BaseMonsterEffect>();
+    //[Header("Other")]
+    //[SerializeReference] public List<BaseMonsterEffect> holdEffects = new List<BaseMonsterEffect>();
 
-    public MonsterData(MonsterData defaultData)
+    public void Clone(MonsterData defaultData)
     {
         monsterName = defaultData.monsterName;
         description = defaultData.description;
@@ -34,42 +34,42 @@ public class MonsterData : ScriptableObject
 
         health = defaultData.health;
 
-        foreach(BaseMonsterEffect effect in defaultData.holdEffects)
-        {
-            holdEffects.Add(effect.Clone());
-        }
+        //foreach(BaseMonsterEffect effect in defaultData.holdEffects)
+        //{
+        //    holdEffects.Add(effect.Clone());
+        //}
     }
 
-    public void Setup(PlayerStats stats, GameObject self)
-    {
-        foreach (BaseMonsterEffect effect in holdEffects)
-        {
-            effect.Setup(stats, self);
-        }
-    }
+    //public void Setup(PlayerStats stats, GameObject self)
+    //{
+    //    foreach (BaseMonsterEffect effect in holdEffects)
+    //    {
+    //        effect.Setup(stats, self);
+    //    }
+    //}
 
-    // add types of boosts
-    [ContextMenu("Stats/Float/PercentageBoost")]
-    public void AddPercentageBoost()
-    {
-        holdEffects.Add(new PercentageBoost(EffectMoment.ONCARRY, "NewPercentageBoost", 0));
-    }
+    //// add types of boosts
+    //[ContextMenu("Stats/Float/PercentageBoost")]
+    //public void AddPercentageBoost()
+    //{
+    //    holdEffects.Add(new PercentageBoost(EffectMoment.ONCARRY, "NewPercentageBoost", 0));
+    //}
 
-    [ContextMenu("Damaging/HurtSelf")]
-    public void AddHurtSelf()
-    {
-        holdEffects.Add(new HurtSelf(EffectMoment.ONLANDING, damage));
-    }
+    //[ContextMenu("Damaging/HurtSelf")]
+    //public void AddHurtSelf()
+    //{
+    //    holdEffects.Add(new HurtSelf(EffectMoment.ONLANDING, damage));
+    //}
 
-    [ContextMenu("Damaging/AOE/AOEDamage/OnLanding")]
-    public void AddAOEDamageOnLand()
-    {
-        holdEffects.Add(new AOEDamage(EffectMoment.ONLANDING, damage, hitMask));
-    }
+    //[ContextMenu("Damaging/AOE/AOEDamage/OnLanding")]
+    //public void AddAOEDamageOnLand()
+    //{
+    //    holdEffects.Add(new AOEDamage(EffectMoment.ONLANDING, damage, hitMask));
+    //}
 
-    [ContextMenu("Damaging/AOE/AOEDamage/OnCarry")]
-    public void AddAOEDamageOnCarry()
-    {
-        holdEffects.Add(new AOEDamage(EffectMoment.ONCARRY, damage, hitMask));
-    }
+    //[ContextMenu("Damaging/AOE/AOEDamage/OnCarry")]
+    //public void AddAOEDamageOnCarry()
+    //{
+    //    holdEffects.Add(new AOEDamage(EffectMoment.ONCARRY, damage, hitMask));
+    //}
 }

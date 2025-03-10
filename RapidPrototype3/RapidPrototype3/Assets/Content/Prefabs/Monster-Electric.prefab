@@ -308,8 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37be623f2b770445a6512af6b75d586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: fefd96531e2da2d48a8331c7358a0a19, type: 2}
-  settings: {fileID: 0}
+  settings: {fileID: 11400000, guid: fefd96531e2da2d48a8331c7358a0a19, type: 2}
   target: {fileID: 0}
   collisionMask:
     serializedVersion: 2
@@ -328,6 +327,43 @@ MonoBehaviour:
       renderer: {fileID: 8783035893054664865}
     - name: Face
       renderer: {fileID: 1024245289216380944}
+  holdEffects:
+  - rid: 1269883397927338152
+  - rid: 1269883397927338153
+  - rid: 1269883397927338154
+  - rid: 1269883397927338211
+  references:
+    version: 2
+    RefIds:
+    - rid: 1269883397927338152
+      type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
+      data:
+        effectMoment: 0
+        effectName: PercentageBoost
+        statIdentifier: speed
+        boost: 50
+        moment: 0
+    - rid: 1269883397927338153
+      type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
+      data:
+        effectMoment: 0
+        effectName: PercentageBoost
+        statIdentifier: acceleration
+        boost: 50
+        moment: 0
+    - rid: 1269883397927338154
+      type: {class: HurtSelf, ns: , asm: Assembly-CSharp}
+      data:
+        effectMoment: 1
+        effectName: HurtSelf
+        damage: 8
+    - rid: 1269883397927338211
+      type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
+      data:
+        effectMoment: 1
+        effectName: AOEDamage
+        damage: 8
+        radius: 1
 --- !u!58 &7557038405090242016
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -22,8 +22,8 @@ MonoBehaviour:
   health: 8
   holdEffects:
   - rid: 1269883391747555597
-  - rid: 1269883391747555598
-  - rid: 1269883391747555599
+  - rid: 1269883397927338104
+  - rid: 1269883397927338105
   references:
     version: 2
     RefIds:
@@ -33,14 +33,15 @@ MonoBehaviour:
         effectName: PercentageBoost
         statIdentifier: speed
         boost: 100
-    - rid: 1269883391747555598
+        moment: 0
+    - rid: 1269883397927338104
+      type: {class: HurtSelf, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: HurtSelf
+        damage: 8
+    - rid: 1269883397927338105
       type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
       data:
         effectName: AOEDamage
         damage: 8
         radius: 2
-    - rid: 1269883391747555599
-      type: {class: HurtSelf, ns: , asm: Assembly-CSharp}
-      data:
-        effectName: HurtSelf
-        damage: 8

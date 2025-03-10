@@ -21,47 +21,50 @@ MonoBehaviour:
     m_Bits: 64
   health: 16
   holdEffects:
-  - rid: 1269883391747555600
-  - rid: 1269883391747555601
-  - rid: 1269883391747555602
   - rid: 1269883391747555603
   - rid: 1269883391747555604
   - rid: 1269883391747555615
+  - rid: 1269883397927338121
+  - rid: 1269883397927338122
+  - rid: 1269883397927338123
   references:
     version: 2
     RefIds:
-    - rid: 1269883391747555600
-      type: {class: HurtSelf, ns: , asm: Assembly-CSharp}
-      data:
-        effectName: HurtSelf
-        damage: 2
-    - rid: 1269883391747555601
-      type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
-      data:
-        effectName: AOEDamage
-        damage: 12
-        radius: 5
-    - rid: 1269883391747555602
-      type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
-      data:
-        effectName: AOEDamage
-        damage: 8
-        radius: 1
     - rid: 1269883391747555603
       type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
       data:
         effectName: PercentageBoost
         statIdentifier: speed
         boost: -50
+        moment: 0
     - rid: 1269883391747555604
       type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
       data:
         effectName: PercentageBoost
         statIdentifier: deceleration
         boost: 50
+        moment: 0
     - rid: 1269883391747555615
       type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
       data:
         effectName: PercentageBoost
         statIdentifier: acceleration
         boost: -70
+        moment: 0
+    - rid: 1269883397927338121
+      type: {class: HurtSelf, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: HurtSelf
+        damage: 4
+    - rid: 1269883397927338122
+      type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: AOEDamage
+        damage: 12
+        radius: 5
+    - rid: 1269883397927338123
+      type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: AOEDamage
+        damage: 8
+        radius: 2

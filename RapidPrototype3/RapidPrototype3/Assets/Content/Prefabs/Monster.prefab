@@ -542,8 +542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f37be623f2b770445a6512af6b75d586, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  monsterData: {fileID: 11400000, guid: 8fcd8f66a9e995a46bb5177b9ed75b77, type: 2}
-  settings: {fileID: 0}
+  settings: {fileID: 11400000, guid: 8fcd8f66a9e995a46bb5177b9ed75b77, type: 2}
   target: {fileID: 0}
   collisionMask:
     serializedVersion: 2
@@ -562,6 +561,25 @@ MonoBehaviour:
       renderer: {fileID: 2696900012965414272}
     - name: Face
       renderer: {fileID: 6869732569244187241}
+  holdEffects:
+  - rid: 1269883397927338203
+  - rid: 1269883397927338205
+  references:
+    version: 2
+    RefIds:
+    - rid: 1269883397927338203
+      type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
+      data:
+        effectMoment: 1
+        effectName: AOEDamage
+        damage: 4
+        radius: 3
+    - rid: 1269883397927338205
+      type: {class: HurtSelf, ns: , asm: Assembly-CSharp}
+      data:
+        effectMoment: 1
+        effectName: HurtSelf
+        damage: 5
 --- !u!58 &4598443788538568576
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -21,17 +21,17 @@ MonoBehaviour:
     m_Bits: 64
   health: 12
   holdEffects:
-  - rid: 1269883391747555594
-  - rid: 1269883391747555595
+  - rid: 1269883397927338124
+  - rid: 1269883397927338125
   references:
     version: 2
     RefIds:
-    - rid: 1269883391747555594
+    - rid: 1269883397927338124
       type: {class: HurtSelf, ns: , asm: Assembly-CSharp}
       data:
         effectName: HurtSelf
         damage: 4
-    - rid: 1269883391747555595
+    - rid: 1269883397927338125
       type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
       data:
         effectName: AOEDamage

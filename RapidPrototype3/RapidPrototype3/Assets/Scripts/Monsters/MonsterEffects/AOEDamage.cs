@@ -6,14 +6,12 @@ public class AOEDamage : BaseMonsterEffect
     [SerializeField] private string effectName;
     [SerializeField] private float damage;
     [SerializeField] private float radius;
-    private LayerMask hitMask;
 
-    public AOEDamage(EffectMoment moment, float damage, LayerMask hitMask) : base(null, moment)
+    public AOEDamage(EffectMoment moment, float damage) : base(null, moment)
     {
         this.effectName = "AOEDamage";
         this.damage = damage;
         this.radius = 1;
-        this.hitMask = hitMask;
     }
 
     public override void ApplyEffect()
@@ -45,7 +43,7 @@ public class AOEDamage : BaseMonsterEffect
     private IDamagable[] HitCheck()
     {
         List<IDamagable> damagables = new List<IDamagable>();
-        Collider2D[] hits = Physics2D.OverlapCircleAll(self.transform.position, radius, hitMask);
+        Collider2D[] hits = Physics2D.OverlapCircleAll(self.transform.position, radius);
         Debug.Log($"Damagable Hits length: {hits.Length}");
         if(hits.Length <= 0 ) { return damagables.ToArray(); }
 
