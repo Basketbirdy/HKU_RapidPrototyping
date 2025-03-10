@@ -26,6 +26,9 @@ public class AOEDamage : BaseMonsterEffect
         IDamagable[] damagables = HitCheck();
         if(damagables.Length <= 0) { return; }
 
+        Debug.Log($"ApplyEffect; damage: {damage}");
+        Debug.Log($"ApplyEffect; stats: {stats}");
+        Debug.Log($"ApplyEffect; player damage from stats: {stats.GetFloatStat("damage")}");
         float finalDamage = damage + stats.GetFloatStat("damage");
         foreach (IDamagable damagable in damagables)
         {

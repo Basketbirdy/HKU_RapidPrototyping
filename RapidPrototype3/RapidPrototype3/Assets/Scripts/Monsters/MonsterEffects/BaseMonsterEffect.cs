@@ -22,4 +22,8 @@ public abstract class BaseMonsterEffect
     }
     public abstract void ApplyEffect();
     public abstract void RemoveEffect();
+    public virtual BaseMonsterEffect Clone()
+    {
+        return (BaseMonsterEffect)this.MemberwiseClone(); // Creates a shallow copy
+    }
 }

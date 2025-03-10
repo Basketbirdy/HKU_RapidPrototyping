@@ -22,6 +22,7 @@ public class PlayerStats
 
         foreach (FloatStat stat in stats)
         {
+            if (floatStats.ContainsKey(stat.Identifier)) { continue; }
             floatStats.Add(stat.Identifier, stat.value);
             floatModifier.Add(stat.Identifier, 1);
         }
@@ -36,6 +37,7 @@ public class PlayerStats
 
         foreach (FloatStat stat in stats)
         {
+            if (floatStats.ContainsKey(stat.Identifier)) { continue; }
             floatStats.Add(stat.Identifier, stat.value);
             floatModifier.Add(stat.Identifier, 1);
         }

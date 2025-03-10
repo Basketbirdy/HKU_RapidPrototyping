@@ -108,4 +108,14 @@ public class UserInterfaceHandler : MonoBehaviour
         if (!buttons.ContainsKey(key)) { return; }
         buttons[key].clicked -= action;
     }
+    public void ShowButton(string key)
+    {
+        if (!buttons.ContainsKey(key)) { return; }
+        buttons[key].style.display = DisplayStyle.Flex;
+    }
+    public void HideButton(string key)
+    {
+        if (!buttons.ContainsKey(key)) { return; }
+        buttons[key].style.display = DisplayStyle.None;
+    }
 }

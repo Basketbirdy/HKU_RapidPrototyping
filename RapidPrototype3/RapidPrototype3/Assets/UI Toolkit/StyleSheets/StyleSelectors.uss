@@ -1,3 +1,23 @@
 .baseElement {
     justify-content: space-between;
 }
+
+.unity-button:hover {
+    border-top-width: 8px;
+    border-right-width: 8px;
+    border-bottom-width: 8px;
+    border-left-width: 8px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+    border-left-color: rgb(130, 31, 31);
+    border-right-color: rgb(130, 31, 31);
+    border-top-color: rgb(130, 31, 31);
+    border-bottom-color: rgb(130, 31, 31);
+    transition-duration: 0.2s;
+}
+
+.unity-button {
+    transition-duration: 0.2s;
+}

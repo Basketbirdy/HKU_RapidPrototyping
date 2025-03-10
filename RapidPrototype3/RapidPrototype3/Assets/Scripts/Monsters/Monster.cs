@@ -3,7 +3,9 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 {
+    [SerializeField] private MonsterData monsterData;
     [SerializeField] private MonsterData settings;
+
     [SerializeField] private Transform target;
     [SerializeField] private LayerMask collisionMask;
 
@@ -32,11 +34,13 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
     private void Awake()
     {
         coll = GetComponent<CircleCollider2D>();
-        settings.Setup(Object.FindFirstObjectByType<PlayerManager>().PlayerStats, gameObject);
+        settings = new MonsterData(monsterData);
+        settings.name = gameObject.name;
     }
 
     private void Start()
     {
+        settings.Setup(Object.FindFirstObjectByType<PlayerManager>().PlayerStats, gameObject);
         currentHealth = settings.health;
     }
 
@@ -62,6 +66,11 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
     //    if (damagable.IsInvincible) { return; }
     //    damagable.TakeDamage(settings.damage);
     //}
+
+    public void SetTarget(Transform target)
+    {
+        this.target = target;
+    }
 
     private void CollisionCheck()
     {
@@ -91,6 +100,8 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 
     private void Move()
     {
+        if(target == null) { return; }
+
         float step = Time.deltaTime * settings.speed;
         Vector2 newPos = Vector2.MoveTowards(transform.position, target.position, step);
         transform.position = newPos;
@@ -161,7 +172,11 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
         Die();
     }
 
-    public void Die() { gameObject.SetActive(false); }
+    public void Die() 
+    {
+        EventHandler.InvokeEvent(EventStrings.MONSTER_KILLED);
+        gameObject.SetActive(false); 
+    }
 }
 
 [System.Serializable]

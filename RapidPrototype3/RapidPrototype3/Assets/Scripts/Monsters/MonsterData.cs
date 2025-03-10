@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 [CreateAssetMenu(fileName = "NewMonsterData", menuName = "Scriptable Objects/MonsterData")]
 public class MonsterData : ScriptableObject
@@ -20,7 +21,24 @@ public class MonsterData : ScriptableObject
     public float health;
 
     [Header("Other")]
-    [SerializeReference] public List<BaseMonsterEffect> holdEffects;
+    [SerializeReference] public List<BaseMonsterEffect> holdEffects = new List<BaseMonsterEffect>();
+
+    public MonsterData(MonsterData defaultData)
+    {
+        monsterName = defaultData.monsterName;
+        description = defaultData.description;
+
+        speed = defaultData.speed;
+        damage = defaultData.damage;
+        hitMask = defaultData.hitMask;
+
+        health = defaultData.health;
+
+        foreach(BaseMonsterEffect effect in defaultData.holdEffects)
+        {
+            holdEffects.Add(effect.Clone());
+        }
+    }
 
     public void Setup(PlayerStats stats, GameObject self)
     {

@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 478fad83b1cac7245bc661f0eb000c0f, type: 3}
+  m_Name: HeavyMonster
+  m_EditorClassIdentifier: 
+  monsterName: HeavyMonster
+  description: A bieg boi
+  speed: 1
+  damage: 12
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 64
+  health: 16
+  holdEffects:
+  - rid: 1269883391747555600
+  - rid: 1269883391747555601
+  - rid: 1269883391747555602
+  - rid: 1269883391747555603
+  - rid: 1269883391747555604
+  - rid: 1269883391747555615
+  references:
+    version: 2
+    RefIds:
+    - rid: 1269883391747555600
+      type: {class: HurtSelf, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: HurtSelf
+        damage: 2
+    - rid: 1269883391747555601
+      type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: AOEDamage
+        damage: 12
+        radius: 5
+    - rid: 1269883391747555602
+      type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: AOEDamage
+        damage: 8
+        radius: 1
+    - rid: 1269883391747555603
+      type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: PercentageBoost
+        statIdentifier: speed
+        boost: -50
+    - rid: 1269883391747555604
+      type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: PercentageBoost
+        statIdentifier: deceleration
+        boost: 50
+    - rid: 1269883391747555615
+      type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
+      data:
+        effectName: PercentageBoost
+        statIdentifier: acceleration
+        boost: -70
