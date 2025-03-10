@@ -4,12 +4,23 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [Header("State")]
-    [SerializeField] private int monstersLeft;
+    [SerializeField] private int monstersToSlay = 16;
+    [SerializeField] private int monstersSlain;
 
     [Header("User Interface Ids")]
     [SerializeField] private string healthBarMaskId = "Element_HealthBarMask";
     [SerializeField] private string counterLabelId = "Label_MonsterCounter";
+
+    [SerializeField] private string startScreenId = "Element_StartScreen";
+    [SerializeField] private string startScreenImageId = "Element_StartScreenImage";
+    [SerializeField] private string startButtonId = "Button_Start";
+
+    [SerializeField] private string endScreenId = "Element_EndScreen";
+    [SerializeField] private string endScreenTextId = "Label_EndText";
     [SerializeField] private string resetButtonId = "Button_Reset";
+    
+    private string endText = "";
+    private bool hasEnded;
 
     private void Awake()
     {
@@ -18,6 +29,15 @@ public class GameManager : MonoBehaviour
         EventHandler.AddListener(EventStrings.PLAYER_UI_ONDEATH, OnPlayerDeath);
 
         UserInterfaceHandler.instance.AddVisualElementRef(healthBarMaskId);
+
+        UserInterfaceHandler.instance.AddVisualElementRef(startScreenId);
+        UserInterfaceHandler.instance.AddVisualElementRef(startScreenImageId);
+
+        UserInterfaceHandler.instance.AddButtonRef(startButtonId);
+        UserInterfaceHandler.instance.AddButtonListener(startButtonId, OnStart);
+
+        UserInterfaceHandler.instance.AddVisualElementRef(endScreenId);
+        UserInterfaceHandler.instance.AddLabelRef(endScreenTextId);
 
         UserInterfaceHandler.instance.AddLabelRef(counterLabelId);
 
@@ -30,11 +50,18 @@ public class GameManager : MonoBehaviour
         EventHandler<HealthChangeInfo>.RemoveListener(EventStrings.PLAYER_UI_ONHEALTHCHANGE, OnHealthChange);
         EventHandler.RemoveListener(EventStrings.MONSTER_KILLED, OnMonsterDefeated);
         EventHandler.RemoveListener(EventStrings.PLAYER_UI_ONDEATH, OnPlayerDeath);
+
+        UserInterfaceHandler.instance.RemoveButtonListener(resetButtonId, OnReset);
+        UserInterfaceHandler.instance.RemoveButtonListener(startButtonId, OnStart);
     }
 
     private void Start()
     {
-        UserInterfaceHandler.instance.SetLabel(counterLabelId, monstersLeft.ToString());
+        endText = "";
+        monstersSlain = 0;
+        UserInterfaceHandler.instance.SetLabel(counterLabelId, monstersSlain.ToString() + " / " + monstersToSlay);
+
+        Time.timeScale = 0;
     }
 
     private void OnHealthChange(HealthChangeInfo info)
@@ -51,13 +78,17 @@ public class GameManager : MonoBehaviour
 
     private void OnMonsterDefeated()
     {
-        monstersLeft--;
-        UserInterfaceHandler.instance.SetLabel(counterLabelId, monstersLeft.ToString());
+        monstersSlain++;
+        UserInterfaceHandler.instance.SetLabel(counterLabelId, monstersSlain.ToString() + " / " + monstersToSlay);
 
-        if( monstersLeft <= 0)
+        if( monstersSlain >= monstersToSlay && !hasEnded)
         {
             // end game
-            UserInterfaceHandler.instance.ShowButton(resetButtonId);
+            endText = "I've slain the requested amount of monsters.";
+            UserInterfaceHandler.instance.SetLabel(endScreenTextId, endText);
+            UserInterfaceHandler.instance.ShowVisualElement(startScreenImageId);
+            UserInterfaceHandler.instance.ShowVisualElement(endScreenId);
+            hasEnded = true;
         }
     }
 
@@ -66,8 +97,20 @@ public class GameManager : MonoBehaviour
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);
     }
+
+    private void OnStart()
+    {
+        Time.timeScale = 1.0f;
+        UserInterfaceHandler.instance.HideVisualElement(startScreenId);
+        UserInterfaceHandler.instance.HideVisualElement(startScreenImageId);
+    }
+
     private void OnPlayerDeath()
     {
-        UserInterfaceHandler.instance.ShowButton(resetButtonId);
+        endText = "...";
+        UserInterfaceHandler.instance.HideVisualElement(startScreenImageId);
+        UserInterfaceHandler.instance.SetLabel(endScreenTextId, endText);
+        UserInterfaceHandler.instance.ShowVisualElement(endScreenId);
+        hasEnded = true;
     }
 }

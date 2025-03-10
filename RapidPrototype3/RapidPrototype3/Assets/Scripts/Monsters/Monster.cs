@@ -40,6 +40,10 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 
     private void Start()
     {
+        if (!target.gameObject.activeSelf)
+        {
+            IsCarried = true;
+        }
         settings.Setup(Object.FindFirstObjectByType<PlayerManager>().PlayerStats, gameObject);
         currentHealth = settings.health;
     }
