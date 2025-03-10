@@ -46,7 +46,11 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         Die();
     }
 
-    public void Die() { gameObject.SetActive(false); }
+    public void Die() 
+    {
+        EventHandler.InvokeEvent(EventStrings.PLAYER_UI_ONDEATH);
+        gameObject.SetActive(false); 
+    }
 
     private void OnBind()
     {

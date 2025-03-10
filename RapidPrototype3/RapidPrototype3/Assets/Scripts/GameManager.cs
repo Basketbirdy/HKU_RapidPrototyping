@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     {
         EventHandler<HealthChangeInfo>.AddListener(EventStrings.PLAYER_UI_ONHEALTHCHANGE, OnHealthChange);
         EventHandler.AddListener(EventStrings.MONSTER_KILLED, OnMonsterDefeated);
+        EventHandler.AddListener(EventStrings.PLAYER_UI_ONDEATH, OnPlayerDeath);
 
         UserInterfaceHandler.instance.AddVisualElementRef(healthBarMaskId);
 
@@ -28,6 +29,7 @@ public class GameManager : MonoBehaviour
     {
         EventHandler<HealthChangeInfo>.RemoveListener(EventStrings.PLAYER_UI_ONHEALTHCHANGE, OnHealthChange);
         EventHandler.RemoveListener(EventStrings.MONSTER_KILLED, OnMonsterDefeated);
+        EventHandler.RemoveListener(EventStrings.PLAYER_UI_ONDEATH, OnPlayerDeath);
     }
 
     private void Start()
@@ -63,5 +65,9 @@ public class GameManager : MonoBehaviour
     {
         int currentScene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(currentScene);
+    }
+    private void OnPlayerDeath()
+    {
+        UserInterfaceHandler.instance.ShowButton(resetButtonId);
     }
 }

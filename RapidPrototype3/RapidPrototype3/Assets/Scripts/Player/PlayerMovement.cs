@@ -19,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     private PhysicsMovement physicsMovement;
     private PlayerStats stats;
 
+    [Header("Animations")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private SpriteRenderer sprite;
+
     private void Awake()
     {
         EventHandler<PlayerStats>.AddListener(EventStrings.PLAYER_STATS_ASSIGNREFERENCE, AssignStats);
@@ -27,11 +31,22 @@ public class PlayerMovement : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         physicsMovement = new PhysicsMovement(rb);
+
+        physicsMovement.onMovingChange += OnMovingChange;
+    }
+
+    private void OnDisable()
+    {
+        physicsMovement.onMovingChange -= OnMovingChange;
     }
 
     private void Update()
     {
         GetInput();
+        if(direction.x > 0) { sprite.flipX = false; }
+        if(direction.x < 0) { sprite.flipX = true; }
+        if (physicsMovement.GetMoving()) {  }
+
         physicsMovement.Move(direction, stats.GetFloatStat(nameof(acceleration)), stats.GetFloatStat(nameof(speed)));
     }
 
@@ -86,5 +101,10 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log($"Deceleration: {stats.GetFloatStat(nameof(deceleration))}");
         Debug.Log($"Friction: {stats.GetFloatStat(nameof(friction))}");
         Debug.Log("------- Stats --------");
+    }
+
+    private void OnMovingChange()
+    {
+        animator.SetBool("isMoving", physicsMovement.GetMoving());
     }
 }
