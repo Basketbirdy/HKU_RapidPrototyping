@@ -5,6 +5,11 @@ public class PlayerHealth : MonoBehaviour, IDamagable
 {
     [SerializeField] private float health;
     [SerializeField] private float invincibility = 3f;
+    [SerializeField] private Color damageColor = Color.red;
+    [SerializeField] private float damageColorTime = .1f;
+    private Color originalColor;
+
+    private SpriteRenderer spriteRenderer;
 
     private PlayerStats stats;
 
@@ -19,6 +24,9 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         EventHandler<PlayerStats>.AddListener(EventStrings.PLAYER_STATS_ASSIGNREFERENCE, AssignStats);
         EventHandler.AddListener(EventStrings.PLAYER_STATS_BIND, OnBind);
         EventHandler.AddListener(EventStrings.PLAYER_STATS_INITIALIZE, OnInitialize);
+
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
     }
 
     private void AssignStats(PlayerStats stats)
@@ -73,6 +81,8 @@ public class PlayerHealth : MonoBehaviour, IDamagable
     {
         Debug.Log($"{gameObject.name} IS invincible");
 
+        spriteRenderer.color = damageColor;
+
         bool isRunning = true;
         float elapsedTime = 0;
         
@@ -82,7 +92,12 @@ public class PlayerHealth : MonoBehaviour, IDamagable
         {
             elapsedTime += Time.deltaTime;
 
-            if(elapsedTime >= duration)
+            if (elapsedTime >= damageColorTime)
+            {
+                spriteRenderer.color = originalColor;
+            }
+
+            if (elapsedTime >= duration)
             {
                 isRunning = false;
             }

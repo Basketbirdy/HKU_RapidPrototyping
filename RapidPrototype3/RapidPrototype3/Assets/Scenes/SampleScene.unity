@@ -6726,8 +6726,8 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490111003
-  m_SortingLayer: 5
-  m_SortingOrder: 0
+  m_SortingLayer: 2
+  m_SortingOrder: 1
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -6948,9 +6948,9 @@ ParticleSystem:
         m_RotationOrder: 4
     startColor:
       serializedVersion: 2
-      minMaxState: 2
-      minColor: {r: 0.47450984, g: 0.4039216, b: 0.33333334, a: 1}
-      maxColor: {r: 0.14117648, g: 0.32156864, b: 0.23137257, a: 1}
+      minMaxState: 0
+      minColor: {r: 0.6415094, g: 0, b: 0.0064813145, a: 1}
+      maxColor: {r: 0.9339623, g: 0.9339623, b: 0.9339623, a: 0.29411766}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -12150,6 +12150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   invincibility: 3
+  damageColor: {r: 0.6320754, g: 0, b: 0, a: 1}
+  damageColorTime: 0.3
   isInvincible: 0
 --- !u!114 &835306245
 MonoBehaviour:
@@ -38145,7 +38147,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1928681183
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 98da1eb38a613924e9680c712613d198, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -50571,7 +50573,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pickupSpeed: 15
   pickupTolerance: 0.1
-  throwKey: q
+  throwKey: 324
   throwCurve:
     serializedVersion: 2
     m_Curve:
@@ -50754,7 +50756,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1313289797
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 3714144374617566936, guid: 56459a54ecd135541847347aac0f0535, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -50919,7 +50921,7 @@ ParticleSystemRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -490111003
-  m_SortingLayer: 5
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_RenderMode: 0
   m_MeshDistribution: 0
@@ -56002,7 +56004,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1928681183
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 3c4309f72985eb64ba20389196c23be4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.11764706}

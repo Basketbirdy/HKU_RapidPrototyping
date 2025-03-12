@@ -74,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 890345723
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 1896892031513896211, guid: 4839332bb0b18db4ebb0c4bb94140f08, type: 3}
   m_Color: {r: 1, g: 0.6367924, b: 0.9762368, a: 1}
@@ -161,7 +161,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 890345723
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 2102912657680913380, guid: 5996569dda56ddf489e0d510aad94064, type: 3}
   m_Color: {r: 0.4528302, g: 0.40850207, b: 0.3481666, a: 1}
@@ -290,16 +290,24 @@ MonoBehaviour:
     pieces:
     - name: Body
       renderer: {fileID: 595853000229208257}
+      originalColor: {r: 0.15294118, g: 0.19215687, b: 0.27450982, a: 1}
     - name: Decals
       renderer: {fileID: 4904330552292052678}
+      originalColor: {r: 1, g: 0.63529414, b: 0.9764706, a: 1}
     - name: Tail
       renderer: {fileID: 2541881367076873940}
+      originalColor: {r: 0.15294118, g: 0.19215688, b: 0.27450982, a: 1}
     - name: Legs
       renderer: {fileID: 1982713986666309494}
+      originalColor: {r: 0.4509804, g: 0.40784314, b: 0.34901962, a: 1}
     - name: Head
       renderer: {fileID: 8202814934233239114}
+      originalColor: {r: 0.4509804, g: 0.40784314, b: 0.34901962, a: 1}
     - name: Face
       renderer: {fileID: 4896149569157227347}
+      originalColor: {r: 1, g: 1, b: 1, a: 1}
+  damageColor: {r: 0.5647059, g: 0, b: 0, a: 1}
+  damageColorTime: 0.2
   holdEffects:
   - rid: 1269883397927338156
   - rid: 1269883397927338157
@@ -322,6 +330,9 @@ MonoBehaviour:
         effectName: AOEDamage
         damage: 12
         radius: 5
+        hitMask:
+          serializedVersion: 2
+          m_Bits: 64
     - rid: 1269883397927338158
       type: {class: AOEDamage, ns: , asm: Assembly-CSharp}
       data:
@@ -329,6 +340,9 @@ MonoBehaviour:
         effectName: AOEDamage
         damage: 6
         radius: 2
+        hitMask:
+          serializedVersion: 2
+          m_Bits: 64
     - rid: 1269883397927338159
       type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
       data:
@@ -336,7 +350,6 @@ MonoBehaviour:
         effectName: PercentageBoost
         statIdentifier: deceleration
         boost: -50
-        moment: 0
     - rid: 1269883397927338160
       type: {class: PercentageBoost, ns: , asm: Assembly-CSharp}
       data:
@@ -344,7 +357,6 @@ MonoBehaviour:
         effectName: PercentageBoost
         statIdentifier: speed
         boost: -70
-        moment: 0
 --- !u!58 &7284146213702705019
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -482,7 +494,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 890345723
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 2
   m_Sprite: {fileID: -6302084216734894490, guid: a6fdc51a20154894aa519aa25ed0b4a7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -569,7 +581,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 890345723
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 3697836855555973867, guid: a9b84ff9dbd16744ba1c995afe82e944, type: 3}
   m_Color: {r: 0.15356888, g: 0.19070037, b: 0.2735849, a: 1}
@@ -656,7 +668,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 890345723
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: -2201553880144763030, guid: c7d919476bbf38f4b9baf4c93acf3279, type: 3}
   m_Color: {r: 0.4528302, g: 0.40850207, b: 0.3481666, a: 1}
@@ -743,7 +755,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 890345723
-  m_SortingLayer: 2
+  m_SortingLayer: 3
   m_SortingOrder: 1
   m_Sprite: {fileID: 5353728219367878234, guid: e0cba4f7ede93ba49b4eb7e8c27175b0, type: 3}
   m_Color: {r: 0.15294118, g: 0.19215687, b: 0.27450982, a: 1}

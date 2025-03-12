@@ -13,7 +13,7 @@ public class PlayerCarrier : MonoBehaviour, ICarrier
     [SerializeField] private float pickupTolerance = .1f;
 
     [Header("Throw")]
-    [SerializeField] private string throwKey = "q";
+    [SerializeField] private KeyCode throwKey = KeyCode.Mouse1;
     [SerializeField] private AnimationCurve throwCurve;
     [SerializeField] private float throwChargeSpeed;
     [SerializeField] private float maxThrowCharge;

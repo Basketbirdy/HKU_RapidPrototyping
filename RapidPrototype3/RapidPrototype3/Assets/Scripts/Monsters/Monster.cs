@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 
 public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 {
@@ -11,6 +12,9 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 
     [Header("Graphics")]
     [SerializeField] private MonsterGFX gfx;
+    [Space]
+    [SerializeField] private Color damageColor;
+    [SerializeField] private float damageColorTime = 0.2f;
     private bool isFlipped = false;
 
     // collision variables
@@ -32,6 +36,7 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
 
     [Header("Effects")]
     [SerializeReference] List<BaseMonsterEffect> holdEffects;
+    private Coroutine damageColorCoroutine;
 
     private void Awake()
     {
@@ -180,6 +185,8 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
         if (newHealth > 0)
         {
             currentHealth = newHealth;
+            if(damageColorCoroutine != null) { StopCoroutine(damageColorCoroutine); damageColorCoroutine = null; }
+            damageColorCoroutine = StartCoroutine(DamageColorTimer(newHealth));
             return;
         }
 
@@ -190,6 +197,32 @@ public class Monster : MonoBehaviour, IInteractable, ICarriable, IDamagable
     {
         EventHandler.InvokeEvent(EventStrings.MONSTER_KILLED);
         gameObject.SetActive(false); 
+    }
+
+    private IEnumerator DamageColorTimer(float duration)
+    {
+        gfx.Recolor(damageColor);
+
+        bool isRunning = true;
+        float elapsedTime = 0;
+
+        while (isRunning == true)
+        {
+            elapsedTime += Time.deltaTime;
+
+            if (elapsedTime >= damageColorTime)
+            {
+                gfx.ResetColor();
+            }
+
+            if (elapsedTime >= duration)
+            {
+                isRunning = false;
+            }
+
+            yield return null;
+        }
+
     }
 
     // add types of boosts
@@ -230,6 +263,21 @@ public struct MonsterGFX
             piece.renderer.flipX = state;
         }
     }
+
+    public void Recolor(Color color)
+    {
+        foreach(GFXPiece piece in pieces)
+        {
+            piece.renderer.color = color;
+        }
+    }
+    public void ResetColor()
+    {
+        foreach (GFXPiece piece in pieces)
+        {
+            piece.renderer.color = piece.originalColor;
+        }
+    }
 }
 
 [System.Serializable]
@@ -237,4 +285,5 @@ public struct GFXPiece
 {
     public string name;
     public SpriteRenderer renderer;
+    public Color originalColor;
 }

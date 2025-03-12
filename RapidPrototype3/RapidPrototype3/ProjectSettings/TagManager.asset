@@ -44,6 +44,9 @@ TagManager:
   - name: Grass
     uniqueID: 2941934487
     locked: 0
+  - name: Particles
+    uniqueID: 3804856293
+    locked: 0
   - name: Monster
     uniqueID: 890345723
     locked: 0
@@ -52,9 +55,6 @@ TagManager:
     locked: 0
   - name: Effects
     uniqueID: 1928681183
-    locked: 0
-  - name: Particles
-    uniqueID: 3804856293
     locked: 0
   m_RenderingLayers:
   - Default
