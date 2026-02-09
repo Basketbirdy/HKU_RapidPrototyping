@@ -50,23 +50,23 @@ public class PatrolBetweenPoints : MonoBehaviour
         Debug.Log("New patrol index" + currentIndex);
     }
 
-    private void OnDrawGizmos()
-    {
-        if (patrolPoints.Length <= 0) { return; }
+    //private void OnDrawGizmos()
+    //{
+    //    if (patrolPoints.Length <= 0) { return; }
 
-        for (int i = 0; i < patrolPoints.Length; i++)
-        {
-            Vector3 pos = patrolPoints[i].position;
-            pos.z = -5;
+    //    for (int i = 0; i < patrolPoints.Length; i++)
+    //    {
+    //        Vector3 pos = patrolPoints[i].position;
+    //        pos.z = -5;
 
-            Gizmos.color = Color.gray;
-            Gizmos.DrawSphere(pos, .3f);
+    //        Gizmos.color = Color.gray;
+    //        Gizmos.DrawSphere(pos, .3f);
 
-            pos.x -= 2.5f;
-            pos.y += 1;
+    //        pos.x -= 2.5f;
+    //        pos.y += 1;
 
-            Gizmos.color = gizmoColor;
-            Handles.Label(pos, gameObject.name + "; " + i.ToString());
-        }
-    }
+    //        Gizmos.color = gizmoColor;
+    //        Handles.Label(pos, gameObject.name + "; " + i.ToString());
+    //    }
+    //}
 }

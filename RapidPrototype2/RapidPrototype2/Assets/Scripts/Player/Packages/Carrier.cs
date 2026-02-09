@@ -29,6 +29,7 @@ public class Carrier : MonoBehaviour, ICarrier
 
     private Action<ICarriable> awaitMove;
     private bool awaitingMove;
+    public bool AwaitingMove => awaitingMove;
 
     private Vector2[] directions;
 
@@ -91,7 +92,7 @@ public class Carrier : MonoBehaviour, ICarrier
         ICarriable carriableToDrop = carriableQueue.Peek();
 
         awaitMove += EndDrop;
-
+        awaitingMove = true;
         StartCoroutine(MoveTowardsTarget(carriableToDrop, dropPosition, Vector3.zero, pickupSpeed, pickupTolerance));
     }
 
@@ -106,8 +107,8 @@ public class Carrier : MonoBehaviour, ICarrier
         // find what carriable to drop
         ICarriable carriableToDrop = carriableQueue.Peek();
 
+        awaitingMove = true;
         awaitMove += EndDrop;
-
         StartCoroutine(MoveTowardsTarget(carriableToDrop, dropPosition, Vector3.zero, pickupSpeed, pickupTolerance, action));
     }
 
@@ -121,6 +122,7 @@ public class Carrier : MonoBehaviour, ICarrier
         if(!carriableQueue.Contains(carriable)) { carriableQueue.Enqueue(carriable); }
 
         awaitMove += EndPickUp;
+        awaitingMove = true;
 
         Vector3 offset = new Vector3(UnityEngine.Random.Range(-offsetXRange.x, offsetXRange.x),
                                         UnityEngine.Random.Range(-offsetYRange.y, offsetYRange.y));
@@ -139,7 +141,6 @@ public class Carrier : MonoBehaviour, ICarrier
     private void EndDrop(ICarriable carriable)
     {
         awaitMove -= EndDrop;
-        awaitingMove = false;
         carriable.IsCarried = false;
 
         carriable.CarriableTransform.parent = null;
@@ -155,6 +156,7 @@ public class Carrier : MonoBehaviour, ICarrier
         }
 
         EventHandler<float>.InvokeEvent(EventStrings.PLAYER_WEIGHT_REMOVE, carriable.Weight);
+        awaitingMove = false;
     }
 
     private IEnumerator MoveTowardsTarget(ICarriable carriable, Transform target, Vector3 offset,float speed, float tolerance)
